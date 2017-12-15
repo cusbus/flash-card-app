@@ -5,6 +5,9 @@
         'ui.router',
         'ui.bootstrap',
 
+        //base 
+        'client.layout',
+
         //services
         'client.services',
 

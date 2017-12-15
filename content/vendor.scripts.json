@@ -1,0 +1,44 @@
+{
+    "chunks": {
+        "vendor": [
+            "jquery",
+            "bootstrap",
+            "angular",
+            "angular-ui-router",
+            "angular-bootstrap",
+            "angular-slimScroll",
+            "angular-sanitize",
+            "summernote",
+            "angular-summernote",
+            "angular-cookies",       
+            "moment",
+            "bootstrap-datetimepicker",
+            "angular-eonasdan-datetimepicker",
+            "jstree",
+            "ngJsTree",
+            "infinite-scroll",
+            "angular-ui-select",
+            "angular-flot"
+        ]
+    },
+    "paths": {
+        "jquery": "content/libs/jquery/dist/jquery.min.js",
+        "bootstrap": "content/libs/bootstrap/dist/js/bootstrap.min.js",
+        "angular": "content/libs/angular/angular.min.js",
+        "angular-ui-router": "content/libs/angular-ui-router/release/angular-ui-router.min.js",
+        "angular-bootstrap": "content/libs/angular-bootstrap/ui-bootstrap-tpls.min.js",
+        "angular-slimScroll": "content/libs/angular-slimscroll-aiska/angular-slimscroll-aiska.js",
+        "angular-sanitize": "content/libs/angular-sanitize/angular-sanitize.min.js",
+        "summernote": "content/libs/summernote/dist/summernote.min.js",
+        "angular-summernote": "content/libs/angular-summernote/dist/angular-summernote.min.js",
+        "angular-cookies": "content/libs/angular-cookies/angular-cookies.min.js",
+        "moment": "content/libs/moment/min/moment.min.js",
+        "bootstrap-datetimepicker":"content/libs/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js",
+        "angular-eonasdan-datetimepicker":"content/libs/angular-eonasdan-datetimepicker/dist/angular-eonasdan-datetimepicker.min.js",
+        "jstree": "content/libs/jstree/dist/jstree.min.js",
+        "ngJsTree": "content/libs/ng-js-tree/dist/ngJsTree.min.js",
+        "infinite-scroll":"content/libs/ngInfiniteScroll/build/ng-infinite-scroll.min.js",
+        "angular-ui-select": "content/libs/angular-ui-select/dist/select.min.js",
+        "angular-flot": "content/libs/angular-flot/angular-flot.min.js"
+    }
+}

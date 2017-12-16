@@ -32,11 +32,11 @@
         '$stateProvider',
         '$urlRouterProvider',
         '$locationProvider'
-    ]
-    
+    ];
+
     function RouteConfig($stateProvider, $urlRouterProvider, $locationProvider) {
-        $urlRouterProvider.otherwise('/otherwise')
-        $locationProvider.html5mode(true)
+        $urlRouterProvider.otherwise('/');
+        $locationProvider.html5Mode(true);
     }
 
 })();

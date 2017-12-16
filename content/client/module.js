@@ -1,5 +1,6 @@
-(function() {
+;(function() {
     'use strict';
+
     angular.module('client', [
         //3rd party
         'ui.router',
@@ -9,11 +10,11 @@
         'client.layout',
 
         //services
-        'client.services',
+        // 'client.services',
 
         //views & controllers
         'client.site',
-        'client.crud'
+        // 'client.crud'
 
     ])
 
@@ -38,4 +39,4 @@
         $locationProvider.html5mode(true)
     }
 
-})()
+})();

@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+;(function () {
     'use strict';
 
     angular.module('client', [
@@ -11,10 +11,13 @@
     'client.layout',
 
     //services
-    'client.services',
+    // 'client.services',
 
     //views & controllers
-    'client.site', 'client.crud']);
+    'client.site']
+    // 'client.crud'
+
+    );
 
     angular.module('client').config(RouteConfig).run(StateErrorHandler);
 
@@ -38,7 +41,7 @@
 (function () {
     'use strict';
 
-    angular.module('client.layout', ['ui-router', 'client.services']);
+    angular.module('client.layout', ['ui.router']);
 
     angular.module('client.layout').config(RouteConfig);
 
@@ -46,17 +49,48 @@
 
     function RouteConfig($stateProvider) {
         $stateProvider.state('site', {
-            // abstract: false,
-            url: '/home',
+            abstract: true,
             views: {
                 root: {
-                    templateUrl: 'client/layout/site.tpl.html',
-                    controller: 'navigationController as ctrl'
+                    templateUrl: 'client/layout/site.tpl.html'
                 }
-            },
-            resolve: {
-                dopppppe: dope
             }
         });
+    }
+})();
+'use strict';
+
+;(function () {
+    'use strict';
+
+    angular.module('client.site', ['ui.router', 'ui.bootstrap']);
+
+    angular.module('client.site').config(RouteConfig);
+
+    RouteConfig.$inject = ['$stateProvider'];
+
+    function RouteConfig($stateProvider) {
+        $stateProvider.state('site.home', {
+            url: '/',
+            views: {
+                'content@site': {
+                    templateUrl: 'client/site/home/home.html',
+                    controller: 'mainController as ctrl'
+                }
+            }
+        });
+    }
+})();
+'use strict';
+
+;(function () {
+    'use strict';
+
+    angular.module('client.site').controller('mainController', MainController);
+
+    MainController.$inject = ['$state', '$log'];
+
+    function MainController($state, $log) {
+        var vm = this;
     }
 })();

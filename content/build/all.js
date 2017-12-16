@@ -14,10 +14,7 @@
     // 'client.services',
 
     //views & controllers
-    'client.site']
-    // 'client.crud'
-
-    );
+    'client.site', 'client.crud']);
 
     angular.module('client').config(RouteConfig).run(StateErrorHandler);
 
@@ -34,6 +31,29 @@
     function RouteConfig($stateProvider, $urlRouterProvider, $locationProvider) {
         $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode(true);
+    }
+})();
+'use strict';
+
+;(function () {
+    'use strict';
+
+    angular.module('client.crud', ['ui.router']);
+
+    angular.module('client.crud').config(RouteConfig);
+
+    RouteConfig.$inject = ['$stateProvider'];
+
+    function RouteConfig($stateProvider) {
+        $stateProvider.state('site.flash-cards', {
+            url: '/flash-cards',
+            views: {
+                'content@site': {
+                    templateUrl: 'client/crud/flash-cards/flash-cards.html',
+                    controller: 'flashCardController as ctrl'
+                }
+            }
+        });
     }
 })();
 'use strict';
@@ -63,6 +83,13 @@
 ;(function () {
     'use strict';
 
+    angular.module('client.services', []);
+})();
+'use strict';
+
+;(function () {
+    'use strict';
+
     angular.module('client.site', ['ui.router', 'ui.bootstrap']);
 
     angular.module('client.site').config(RouteConfig);
@@ -79,6 +106,26 @@
                 }
             }
         });
+    }
+})();
+"use strict";
+'use strict';
+
+;(function () {
+    'use strict';
+
+    angular.module('client.crud').controller('flashCardController', FlashCardController);
+
+    FlashCardController.$inject = ['$state', '$log'];
+
+    function FlashCardController($state, $log) {
+        var vm = this;
+
+        init();
+
+        function init() {
+            $log.log('flash-card crud loaded');
+        }
     }
 })();
 'use strict';

@@ -14,7 +14,7 @@
 
         //views & controllers
         'client.site',
-        // 'client.crud'
+        'client.crud'
 
     ])
 

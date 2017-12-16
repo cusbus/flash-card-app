@@ -1,7 +1,7 @@
 (function() {
     'use strict'
 
-    angular.module('client.layout', ['ui-router', 'client.services'])
+    angular.module('client.layout', ['ui.router'])
 
     angular.module('client.layout').config(RouteConfig)
 
@@ -10,19 +10,13 @@
     function RouteConfig($stateProvider) {
         $stateProvider
             .state('site', {
-                // abstract: false,
-                url: '/home',
+                abstract: true,
                 views: {
                     root: {
-                        templateUrl: 'client/layout/site.tpl.html',
-                        controller: 'navigationController as ctrl'
+                        templateUrl: 'client/layout/site.tpl.html'
                     }
-                },
-                resolve: {
-                    dopppppe: dope
                 }
             })
-
     }
 
 })()

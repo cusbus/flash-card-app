@@ -1,7 +1,7 @@
 
 'use strict';
 
-const notesService = require('./services/notes.service')
+const flashCardService = require('../services/flash-cards.service')
 const responses = require('../models/responses')
 const apiPrefix = 'api/notes';
 
@@ -14,7 +14,7 @@ module.exports = {
 }
 
 function _readAll(req, res) {
-    notesService.readAll()
+    flashCardService.readAll()
         .then(notes => {
             const responseModel = new responses.ItemsResponse()
             responseModel.items = notes
@@ -27,18 +27,27 @@ function _readAll(req, res) {
 }
 
 function _readById(req, res){
-
+    flashCardService.readById(req.params._id)
+        .then(flashCard => {
+            const responseModel = new responses.ItemResponse()
+            responseModel.item = flashCard
+            res.json(responseModel)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).send(new responses.ErrorResponse(err))
+        })
 }
 
 function _create(req, res){
     
-    let note = {
+    let flashCard = {
         question: req.body.question,
         answer: req.body.answer,
         category: req.body.category
     }
 
-    notesService.create(note)
+    flashCardService.create(flashCard)
         .then(id => {
             const responseModel = new responses.ItemResponse()
             responseModel.id = id
@@ -53,7 +62,7 @@ function _create(req, res){
 }
 
 function _update(req, res){
-    // param will need to be id, note
+    // param will need to be id, flashCard
 }
 
 function _delete(req, res){

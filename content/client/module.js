@@ -10,7 +10,7 @@
         'client.layout',
 
         //services
-        // 'client.services',
+        'client.services',
 
         //views & controllers
         'client.site',

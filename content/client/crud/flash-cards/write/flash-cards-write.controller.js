@@ -11,10 +11,11 @@
         
         // public variables
         vm.formData = {};
-        vm.tagline = "Create"
+        vm.tagline = null
 
         // public functions
         vm.submit = _submit
+        vm.goToListView = _goToListView
 
         init()
 
@@ -33,7 +34,7 @@
                     category: flashCard.category,
                     subCategory: flashCard.subCategory
                 }
-            }
+            } else { vm.tagline = 'Create' }
         }
 
         function _submit(){
@@ -41,7 +42,7 @@
                 flashCardService.update(vm.formData)
                     .then(result => {
                         $log.log(result)
-                        $state.go('site.flash-cards')
+                        $state.go('site.flash-cards.list', null, { reload: true })
                     })
                     .catch(err => $log.log(err))
             }
@@ -49,12 +50,15 @@
                 flashCardService.create(vm.formData) 
                     .then(result => {
                         $log.log(result)
-                        $state.go('site.flash-cards')
+                        $state.go('site.flash-cards.list', null, { reload: true })
                     })
                     .catch(err => $log.log(err))
             }
         }
 
+        function _goToListView() {
+            $state.go('site.flash-cards.list', null, { reload: true })
+        }
     }
 
 })();

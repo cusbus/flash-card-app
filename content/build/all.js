@@ -60,6 +60,9 @@
                     templateUrl: 'client/crud/flash-cards/write/flash-cards-write.html',
                     controller: 'flashCardWriteController as ctrl'
                 }
+            },
+            resolve: {
+                flashCard: checkForIdParam
             }
         }).state('site.flash-cards.edit', {
             url: '/edit/:id',
@@ -70,7 +73,7 @@
                 }
             },
             resolve: {
-                flashCard: getSingleFlashCard
+                flashCard: checkForIdParam
             }
         }).state('site.flash-cards.list', {
             url: '/list',
@@ -83,10 +86,21 @@
             resolve: {
                 flashCards: getAllFlashCards
             }
+        }).state('site.flash-cards.detail', {
+            url: '/details/:id',
+            views: {
+                'card-content': {
+                    templateUrl: 'client/crud/flash-cards/details/flash-cards-detail.html',
+                    controller: 'flashCardDetailController as ctrl'
+                }
+            },
+            resolve: {
+                flashCard: checkForIdParam
+            }
         });
 
         getAllFlashCards.$inject = ['flashCardService'];
-        getSingleFlashCard.$inject = ['flashCardService', '$stateParams'];
+        checkForIdParam.$inject = ['flashCardService', '$stateParams'];
 
         function getAllFlashCards(flashCardService) {
             return flashCardService.readAll().then(function (flashCards) {
@@ -94,10 +108,14 @@
             });
         }
 
-        function getSingleFlashCard(flashCardService, $stateParams) {
-            return flashCardService.readById($stateParams.id).then(function (flashCard) {
-                return flashCard.item;
-            });
+        function checkForIdParam(flashCardService, $stateParams) {
+            if ($stateParams.id) {
+                return flashCardService.readById($stateParams.id).then(function (flashCard) {
+                    return flashCard.item;
+                });
+            } else {
+                return null;
+            }
         }
     }
 })();
@@ -237,6 +255,27 @@
 ;(function () {
     'use strict';
 
+    angular.module('client.crud').controller('flashCardDetailController', FlashCardDetailController);
+
+    FlashCardDetailController.$inject = ['$state', '$stateParams', '$log', 'flashCard'];
+
+    function FlashCardDetailController($state, $stateParams, $log, flashCard) {
+        //public variables
+        var vm = this;
+        vm.flashCard = {};
+
+        init();
+
+        function init() {
+            vm.flashCard = flashCard;
+        }
+    }
+})();
+'use strict';
+
+;(function () {
+    'use strict';
+
     angular.module('client.crud').controller('flashCardListController', FlashCardListController);
 
     FlashCardListController.$inject = ['$log', '$state', 'flashCards', 'flashCardService'];
@@ -268,10 +307,11 @@
 
         // public variables
         vm.formData = {};
-        vm.tagline = "Create";
+        vm.tagline = null;
 
         // public functions
         vm.submit = _submit;
+        vm.goToListView = _goToListView;
 
         init();
 
@@ -290,6 +330,8 @@
                     category: flashCard.category,
                     subCategory: flashCard.subCategory
                 };
+            } else {
+                vm.tagline = 'Create';
             }
         }
 
@@ -297,18 +339,22 @@
             if (vm.formData._id) {
                 flashCardService.update(vm.formData).then(function (result) {
                     $log.log(result);
-                    $state.go('site.flash-cards');
+                    $state.go('site.flash-cards.list', null, { reload: true });
                 }).catch(function (err) {
                     return $log.log(err);
                 });
             } else {
                 flashCardService.create(vm.formData).then(function (result) {
                     $log.log(result);
-                    $state.go('site.flash-cards');
+                    $state.go('site.flash-cards.list', null, { reload: true });
                 }).catch(function (err) {
                     return $log.log(err);
                 });
             }
+        }
+
+        function _goToListView() {
+            $state.go('site.flash-cards.list', null, { reload: true });
         }
     }
 })();

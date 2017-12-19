@@ -36,12 +36,26 @@ function _readById(id){
 }
 
 function _create(flashCard){
+    let newFlashCard = {
+        question: flashCard.question,
+        answer: flashCard.answer,
+        category: flashCard.category,
+        subCategory: flashCard.subCategory
+    }
+
     return conn.db().collection('flashCards').insert(flashCard)
         .then(result => result.insertedIds[0].toString()) //return created id as string
 }
 
 function _update(id, flashCard) {
-
+    let newFlashCard = {
+        question: flashCard.question,
+        answer: flashCard.answer,
+        category: flashCard.category,
+        subCategory: flashCard.subCategory
+    }
+    return conn.db().collection('flashCards').updateOne({_id: new ObjectId(id)}, { $set: newFlashCard })
+        .then(result => Promise.resolve())
 }
 
 function _delete(id) {

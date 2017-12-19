@@ -40,15 +40,7 @@ function _readById(req, res){
 }
 
 function _create(req, res){
-    
-    let flashCard = {
-        question: req.body.question,
-        answer: req.body.answer,
-        category: req.body.category,
-        subCategory: req.body.subCategory
-    }
-
-    flashCardService.create(flashCard)
+    flashCardService.create(req.body)
         .then(id => {
             const responseModel = new responses.ItemResponse()
             responseModel.id = id
@@ -63,7 +55,15 @@ function _create(req, res){
 }
 
 function _update(req, res){
-    // param will need to be id, flashCard
+    flashCardService.update(req.params.id, req.body)
+        .then(result => {
+            const responseModel = new responses.SuccessResponse()
+            res.status(200).json(responseModel)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).send(new responses.ErrorResponse(err))
+        })
 }
 
 function _delete(req, res){

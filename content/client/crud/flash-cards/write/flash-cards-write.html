@@ -1,5 +1,5 @@
 <div style="margin-top: 50px;">
-    <form lpformnum="1" novalidate ng-model="ctrl.formData" ng-submit="ctrl.submit()">
+    <form lpformnum="1" novalidate ng-model="ctrl.formData">
         <fieldset>
             <legend>{{ctrl.tagline}}</legend>
             <div class="form-group">
@@ -27,7 +27,8 @@
                         <option value="angular">Angular 1.x</option>
                     </select>
                 </div>
-            <button type="submit" class="btn btn-info">Submit</button>
+            <button ng-click="ctrl.submit()" class="btn btn-info">Submit</button>
+            <button ng-click="ctrl.goToListView()" class="btn btn-secondary">Back to List</button>
         </fieldset>
     </form>
 </div>

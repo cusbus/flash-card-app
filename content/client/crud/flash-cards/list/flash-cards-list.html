@@ -9,14 +9,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="table-secondary" ng-repeat="flashCard in ctrl.flashCards" class="text-center" ng-mouseover="hoverEdit = true" ng-mouseleave="hoverEdit = false" >
+            <tr ng-repeat="flashCard in ctrl.flashCards" ng-mouseover="hoverEdit = true" ng-mouseleave="hoverEdit = false" >
                 <td>{{flashCard.category}}</td>
                 <td>{{flashCard.subCategory}}</td>
                 <td>{{flashCard.question}}</td>
                 <td>
                     <div ng-show="hoverEdit">
                         <span>
-                            <a ui-sref="" class="noUnderLine">
+                            <a ui-sref="site.flash-cards.detail({id:flashCard._id})" class="noUnderLine">
                                 <i class="fa fa-info-circle fa-sm infoIcon" aria-hidden="true"></i>
                             </a>
                         </span>

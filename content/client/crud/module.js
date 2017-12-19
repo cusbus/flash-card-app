@@ -25,6 +25,9 @@
                         templateUrl: 'client/crud/flash-cards/write/flash-cards-write.html',
                         controller: 'flashCardWriteController as ctrl'
                     }
+                },
+                resolve: {
+                    flashCard: checkForIdParam
                 }
             })
             .state('site.flash-cards.edit', {
@@ -36,7 +39,7 @@
                     }
                 },
                 resolve: {
-                    flashCard: getSingleFlashCard
+                    flashCard: checkForIdParam
                 }
             })
             .state('site.flash-cards.list', {
@@ -51,21 +54,33 @@
                     flashCards: getAllFlashCards
                 }
             })
+            .state('site.flash-cards.detail', {
+                url: '/details/:id',
+                views: {
+                    'card-content': {
+                        templateUrl: 'client/crud/flash-cards/details/flash-cards-detail.html',
+                        controller: 'flashCardDetailController as ctrl'
+                    }
+                },
+                resolve: {
+                    flashCard: checkForIdParam
+                }
+            })
 
             getAllFlashCards.$inject = ['flashCardService']
-            getSingleFlashCard.$inject = ['flashCardService', '$stateParams']
+            checkForIdParam.$inject = ['flashCardService', '$stateParams']
 
             function getAllFlashCards(flashCardService){
                 return flashCardService.readAll()
                     .then(flashCards => flashCards.items)
             }
 
-            function getSingleFlashCard(flashCardService, $stateParams) {
-                return flashCardService.readById($stateParams.id)
-                    .then(flashCard => flashCard.item)
+            function checkForIdParam(flashCardService, $stateParams) {
+                if ($stateParams.id) {
+                    return flashCardService.readById($stateParams.id)
+                        .then(flashCard => flashCard.item)
+                } else { return null }
             }
 
-
     }
-
 })();

@@ -237,9 +237,7 @@
 
         init();
 
-        function init() {
-            $log.log('flash-card crud loaded');
-        }
+        function init() {}
 
         function _addAnimationCreate() {
             if ($state.current.name == 'site.flash-cards') {
@@ -376,7 +374,6 @@
         init();
 
         function init() {
-            $log.log('write controller landed');
             _checkAndSetMode();
         }
 

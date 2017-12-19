@@ -20,7 +20,6 @@
         init()
 
         function init(){
-            $log.log('write controller landed')
             _checkAndSetMode()
         }
 

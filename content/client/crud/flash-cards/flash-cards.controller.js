@@ -17,7 +17,7 @@
         init()
 
         function init() {
-            $log.log('flash-card crud loaded')
+            
         }
 
         function _addAnimationCreate(){

@@ -5,7 +5,7 @@
 
     angular.module('client', [
     //3rd party
-    'ui.router', 'ui.bootstrap',
+    'ui.router', 'ui.bootstrap', 'btford.markdown',
 
     //base 
     'client.layout',
@@ -245,8 +245,10 @@
             if ($state.current.name == 'site.flash-cards') {
                 return { 'flipInX': true };
             }
-            if ($state.current.name != 'site.flash-cards.write' && $state.current.name != 'site.flash-cards') {
+            if ($state.current.name == 'site.flash-cards.write' && $state.current.name != 'site.flash-cards') {
                 return { 'flipOutX': true };
+            } else {
+                return { 'flipInX': true };
             }
         }
 
@@ -254,8 +256,10 @@
             if ($state.current.name == 'site.flash-cards') {
                 return { 'flipInX': true };
             }
-            if ($state.current.name != 'site.flash-cards.list' && $state.current.name != 'site.flash-cards') {
+            if ($state.current.name == 'site.flash-cards.list' && $state.current.name != 'site.flash-cards') {
                 return { 'flipOutX': true };
+            } else {
+                return { 'flipInX': true };
             }
         }
 
@@ -263,8 +267,10 @@
             if ($state.current.name == 'site.flash-cards') {
                 return { 'flipInX': true };
             }
-            if ($state.current.name != 'site.flash-cards.practice' && $state.current.name != 'site.flash-cards') {
+            if ($state.current.name == 'site.flash-cards.practice' && $state.current.name != 'site.flash-cards') {
                 return { 'flipOutX': true };
+            } else {
+                return { 'flipInX': true };
             }
         }
     }

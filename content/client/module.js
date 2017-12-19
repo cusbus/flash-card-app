@@ -5,6 +5,7 @@
         //3rd party
         'ui.router',
         'ui.bootstrap',
+        'btford.markdown',
 
         //base 
         'client.layout',

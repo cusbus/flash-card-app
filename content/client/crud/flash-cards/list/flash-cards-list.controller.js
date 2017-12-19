@@ -12,12 +12,23 @@
         let vm = this
         vm.flashCards = null
 
+        //public functions
+        vm.delete = _delete
+
         init()
 
         function init(){
             vm.flashCards = flashCards
         }
 
+        function _delete(id, index){
+            flashCardService.delete(id)
+                .then(result => {
+                    $log.log(result)
+                    vm.flashCards.splice(index, 1)
+                })
+                .catch(error => $log.log(error))
+        }
     }
     
 })();

@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="flashCard in ctrl.flashCards" ng-mouseover="hoverEdit = true" ng-mouseleave="hoverEdit = false" >
+            <tr ng-repeat="flashCard in ctrl.flashCards track by $index" ng-mouseover="hoverEdit = true" ng-mouseleave="hoverEdit = false">
                 <td>{{flashCard.category}}</td>
                 <td>{{flashCard.subCategory}}</td>
                 <td>{{flashCard.question}}</td>
@@ -26,7 +26,7 @@
                             </a>
                         </span>
                         <span>
-                            <a ui-sref "" class="noUnderLine">
+                            <a ng-click="ctrl.delete(flashCard._id, $index)" class="noUnderLine">
                                 <i class="fa fa-times-circle fa-sm deleteIcon" aria-hidden="true"></i>
                             </a>
                         </span>

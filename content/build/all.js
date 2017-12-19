@@ -5,7 +5,7 @@
 
     angular.module('client', [
     //3rd party
-    'ui.router', 'ui.bootstrap',
+    'ui.router', 'ui.bootstrap', 'btford.markdown',
 
     //base 
     'client.layout',
@@ -96,6 +96,17 @@
             },
             resolve: {
                 flashCard: checkForIdParam
+            }
+        }).state('site.flash-cards.practice', {
+            url: '/practice',
+            views: {
+                'card-content': {
+                    templateUrl: 'client/crud/flash-cards/practice/flash-cards-practice.html',
+                    controller: 'flashCardPracticeController as ctrl'
+                }
+            },
+            resolve: {
+                flashCards: getAllFlashCards
             }
         });
 
@@ -237,16 +248,16 @@
 
         init();
 
-        function init() {
-            $log.log('flash-card crud loaded');
-        }
+        function init() {}
 
         function _addAnimationCreate() {
             if ($state.current.name == 'site.flash-cards') {
                 return { 'flipInX': true };
             }
-            if ($state.current.name != 'site.flash-cards.write' && $state.current.name != 'site.flash-cards') {
+            if ($state.current.name == 'site.flash-cards.write' && $state.current.name != 'site.flash-cards') {
                 return { 'flipOutX': true };
+            } else {
+                return { 'flipInX': true };
             }
         }
 
@@ -254,8 +265,10 @@
             if ($state.current.name == 'site.flash-cards') {
                 return { 'flipInX': true };
             }
-            if ($state.current.name != 'site.flash-cards.list' && $state.current.name != 'site.flash-cards') {
+            if ($state.current.name == 'site.flash-cards.list' && $state.current.name != 'site.flash-cards') {
                 return { 'flipOutX': true };
+            } else {
+                return { 'flipInX': true };
             }
         }
 
@@ -263,8 +276,10 @@
             if ($state.current.name == 'site.flash-cards') {
                 return { 'flipInX': true };
             }
-            if ($state.current.name != 'site.flash-cards.practice' && $state.current.name != 'site.flash-cards') {
+            if ($state.current.name == 'site.flash-cards.practice' && $state.current.name != 'site.flash-cards') {
                 return { 'flipOutX': true };
+            } else {
+                return { 'flipInX': true };
             }
         }
     }
@@ -289,17 +304,27 @@
 
     angular.module('client.crud').controller('flashCardDetailController', FlashCardDetailController);
 
-    FlashCardDetailController.$inject = ['$state', '$stateParams', '$log', 'flashCard'];
+    FlashCardDetailController.$inject = ['$state', '$stateParams', '$log', 'flashCard', 'flashCardService'];
 
-    function FlashCardDetailController($state, $stateParams, $log, flashCard) {
+    function FlashCardDetailController($state, $stateParams, $log, flashCard, flashCardService) {
         //public variables
         var vm = this;
         vm.flashCard = {};
+
+        //public functions
+        vm.delete = _delete;
 
         init();
 
         function init() {
             vm.flashCard = flashCard;
+        }
+
+        function _delete(id) {
+            flashCardService.delete(id).then(function (result) {
+                $log.log(result);
+                $state.go('site.flash-cards.list', null, { reload: true });
+            });
         }
     }
 })();
@@ -318,10 +343,52 @@
         var vm = this;
         vm.flashCards = null;
 
+        //public functions
+        vm.delete = _delete;
+
         init();
 
         function init() {
             vm.flashCards = flashCards;
+        }
+
+        function _delete(id, index) {
+            flashCardService.delete(id).then(function (result) {
+                $log.log(result);
+                vm.flashCards.splice(index, 1);
+            }).catch(function (error) {
+                return $log.log(error);
+            });
+        }
+    }
+})();
+'use strict';
+
+;(function () {
+    'use strict';
+
+    angular.module('client.crud').controller('flashCardPracticeController', FlashCardPracticeController);
+
+    FlashCardPracticeController.$inject = ['$log', '$state', 'flashCards'];
+
+    function FlashCardPracticeController($log, $state, flashCards) {
+        //public variables
+        var vm = this;
+        vm.toggleQuestion = true;
+        vm.toggleAnswer = false;
+
+        //public functions
+        vm.toggleQA = _toggleQA;
+
+        init();
+
+        function init() {
+            vm.flashCards = flashCards;
+        }
+
+        function _toggleQA() {
+            vm.toggleAnswer = !vm.toggleAnswer;
+            vm.toggleQuestion = !vm.toggleQuestion;
         }
     }
 })();
@@ -348,7 +415,6 @@
         init();
 
         function init() {
-            $log.log('write controller landed');
             _checkAndSetMode();
         }
 
@@ -371,7 +437,7 @@
             if (vm.formData._id) {
                 flashCardService.update(vm.formData).then(function (result) {
                     $log.log(result);
-                    $state.go('site.flash-cards');
+                    $state.go('site.flash-cards.list');
                 }).catch(function (err) {
                     return $log.log(err);
                 });

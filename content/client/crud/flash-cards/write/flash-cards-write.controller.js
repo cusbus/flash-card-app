@@ -20,7 +20,6 @@
         init()
 
         function init(){
-            $log.log('write controller landed')
             _checkAndSetMode()
         }
 
@@ -42,7 +41,7 @@
                 flashCardService.update(vm.formData)
                     .then(result => {
                         $log.log(result)
-                        $state.go('site.flash-cards')
+                        $state.go('site.flash-cards.list')
                     })
                     .catch(err => $log.log(err))
             }

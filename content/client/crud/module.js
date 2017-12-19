@@ -66,6 +66,18 @@
                     flashCard: checkForIdParam
                 }
             })
+            .state('site.flash-cards.practice', {
+                url: '/practice',
+                views: {
+                    'card-content': {
+                        templateUrl: 'client/crud/flash-cards/practice/flash-cards-practice.html',
+                        controller: 'flashCardPracticeController as ctrl'
+                    }
+                },
+                resolve: { 
+                    flashCards: getAllFlashCards
+                }
+            })
 
             getAllFlashCards.$inject = ['flashCardService']
             checkForIdParam.$inject = ['flashCardService', '$stateParams']

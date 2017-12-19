@@ -15,9 +15,9 @@ module.exports = {
 
 function _readAll(req, res) {
     flashCardService.readAll()
-        .then(notes => {
+        .then(flashCards => {
             const responseModel = new responses.ItemsResponse()
-            responseModel.items = notes
+            responseModel.items = flashCards
             res.json(responseModel) 
         })
         .catch(err => {
@@ -27,7 +27,7 @@ function _readAll(req, res) {
 }
 
 function _readById(req, res){
-    flashCardService.readById(req.params._id)
+    flashCardService.readById(req.params.id)
         .then(flashCard => {
             const responseModel = new responses.ItemResponse()
             responseModel.item = flashCard
@@ -44,7 +44,8 @@ function _create(req, res){
     let flashCard = {
         question: req.body.question,
         answer: req.body.answer,
-        category: req.body.category
+        category: req.body.category,
+        subCategory: req.body.subCategory
     }
 
     flashCardService.create(flashCard)

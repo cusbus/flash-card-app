@@ -1,1 +1,38 @@
-<pre>List View Loaded</pre>
+<div style="margin-top: 50px;">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Subcategory</th>
+                <th scope="col">Question</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-secondary" ng-repeat="flashCard in ctrl.flashCards" class="text-center" ng-mouseover="hoverEdit = true" ng-mouseleave="hoverEdit = false" >
+                <td>{{flashCard.category}}</td>
+                <td>{{flashCard.subCategory}}</td>
+                <td>{{flashCard.question}}</td>
+                <td>
+                    <div ng-show="hoverEdit">
+                        <span>
+                            <a ui-sref="" class="noUnderLine">
+                                <i class="fa fa-info-circle fa-sm infoIcon" aria-hidden="true"></i>
+                            </a>
+                        </span>
+                        <span>
+                            <a ui-sref="site.flash-cards.edit({id:flashCard._id})" class="noUnderLine">
+                                <i class="fa fa-pencil-square fa-sm editIcon" aria-hidden="true"></i>
+                            </a>
+                        </span>
+                        <span>
+                            <a ui-sref "" class="noUnderLine">
+                                <i class="fa fa-times-circle fa-sm deleteIcon" aria-hidden="true"></i>
+                            </a>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

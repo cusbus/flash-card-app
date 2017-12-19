@@ -27,6 +27,18 @@
                     }
                 }
             })
+            .state('site.flash-cards.edit', {
+                url: '/edit/:id',
+                views: {
+                    'card-content': {
+                        templateUrl: 'client/crud/flash-cards/write/flash-cards-write.html',
+                        controller: 'flashCardWriteController as ctrl'
+                    }
+                },
+                resolve: {
+                    flashCard: getSingleFlashCard
+                }
+            })
             .state('site.flash-cards.list', {
                 url: '/list',
                 views: {
@@ -34,8 +46,26 @@
                         templateUrl: 'client/crud/flash-cards/list/flash-cards-list.html',
                         controller: 'flashCardListController as ctrl'
                     }
+                },
+                resolve: { 
+                    flashCards: getAllFlashCards
                 }
             })
+
+            getAllFlashCards.$inject = ['flashCardService']
+            getSingleFlashCard.$inject = ['flashCardService', '$stateParams']
+
+            function getAllFlashCards(flashCardService){
+                return flashCardService.readAll()
+                    .then(flashCards => flashCards.items)
+            }
+
+            function getSingleFlashCard(flashCardService, $stateParams) {
+                return flashCardService.readById($stateParams.id)
+                    .then(flashCard => flashCard.item)
+            }
+
+
     }
 
 })();

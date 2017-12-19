@@ -4,16 +4,20 @@
     angular.module('client.crud')
         .controller('flashCardListController', FlashCardListController)
 
-    FlashCardListController.$inject = ['$log', '$state']
+    FlashCardListController.$inject = ['$log', '$state', 'flashCards', 'flashCardService']
 
-    function FlashCardListController($log, $state) {
-        let vm=this
+    function FlashCardListController($log, $state, flashCards, flashCardService) {
+        
+        //public variables
+        let vm = this
+        vm.flashCards = null
 
         init()
 
         function init(){
-            $log.log('list view controller loaded')
+            vm.flashCards = flashCards
         }
+
     }
     
 })();

@@ -28,7 +28,7 @@ function _readAll(){
 }
 
 function _readById(id){
-    return conn.db().collection('flashCards').findOne( {_id: new ObjectId(id) } ).toArray()
+    return conn.db().collection('flashCards').findOne( {_id: new ObjectId(id) } )
         .then(flashCard => {
             flashCard._id = flashCard._id.toString()
             return flashCard
@@ -36,7 +36,6 @@ function _readById(id){
 }
 
 function _create(flashCard){
-   
     return conn.db().collection('flashCards').insert(flashCard)
         .then(result => result.insertedIds[0].toString()) //return created id as string
 }

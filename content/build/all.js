@@ -295,17 +295,27 @@
 
     angular.module('client.crud').controller('flashCardDetailController', FlashCardDetailController);
 
-    FlashCardDetailController.$inject = ['$state', '$stateParams', '$log', 'flashCard'];
+    FlashCardDetailController.$inject = ['$state', '$stateParams', '$log', 'flashCard', 'flashCardService'];
 
-    function FlashCardDetailController($state, $stateParams, $log, flashCard) {
+    function FlashCardDetailController($state, $stateParams, $log, flashCard, flashCardService) {
         //public variables
         var vm = this;
         vm.flashCard = {};
+
+        //public functions
+        vm.delete = _delete;
 
         init();
 
         function init() {
             vm.flashCard = flashCard;
+        }
+
+        function _delete(id) {
+            flashCardService.delete(id).then(function (result) {
+                $log.log(result);
+                $state.go('site.flash-cards.list', null, { reload: true });
+            });
         }
     }
 })();
@@ -324,10 +334,22 @@
         var vm = this;
         vm.flashCards = null;
 
+        //public functions
+        vm.delete = _delete;
+
         init();
 
         function init() {
             vm.flashCards = flashCards;
+        }
+
+        function _delete(id, index) {
+            flashCardService.delete(id).then(function (result) {
+                $log.log(result);
+                vm.flashCards.splice(index, 1);
+            }).catch(function (error) {
+                return $log.log(error);
+            });
         }
     }
 })();
@@ -377,14 +399,14 @@
             if (vm.formData._id) {
                 flashCardService.update(vm.formData).then(function (result) {
                     $log.log(result);
-                    $state.go('site.flash-cards');
+                    $state.go('site.flash-cards.list', null, { reload: true });
                 }).catch(function (err) {
                     return $log.log(err);
                 });
             } else {
                 flashCardService.create(vm.formData).then(function (result) {
                     $log.log(result);
-                    $state.go('site.flash-cards');
+                    $state.go('site.flash-cards.list', null, { reload: true });
                 }).catch(function (err) {
                     return $log.log(err);
                 });
@@ -392,7 +414,7 @@
         }
 
         function _goToMainView() {
-            $state.go('site.flash-cards');
+            $state.go('site.flash-cards.list', null, { reload: true });
         }
     }
 })();

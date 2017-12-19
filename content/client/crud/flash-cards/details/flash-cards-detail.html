@@ -21,7 +21,7 @@
         <div class="form-group">
             <button ui-sref="site.flash-cards.list" class="btn btn-secondary">Back to List</button>
             <button ui-sref="site.flash-cards.edit({id:ctrl.flashCard._id})" class="btn btn-warning">Edit</button>
-            <button ui-sref="" class="btn btn-danger">Delete</button>
+            <button ng-click="ctrl.delete(ctrl.flashCard._id)" class="btn btn-danger">Delete</button>
         </div>
     </form>
 </div>

@@ -59,5 +59,6 @@ function _update(id, flashCard) {
 }
 
 function _delete(id) {
-
+    return conn.db().collection('flashCards').deleteOne({_id: new ObjectId(id)})
+        .then(result => Promise.resolve())
 }

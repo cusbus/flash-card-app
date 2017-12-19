@@ -67,6 +67,14 @@ function _update(req, res){
 }
 
 function _delete(req, res){
-
+    flashCardService.delete(req.params.id)
+        .then(result => {
+            const responseModel = new responses.SuccessResponse()
+            res.status(200).json(responseModel)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).send(new responses.ErrorResponse(err))
+        })
 }
 

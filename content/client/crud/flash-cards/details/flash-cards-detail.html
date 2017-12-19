@@ -1,0 +1,27 @@
+<div style="margin-top: 50px;">
+
+    <form class="form-horizontal">
+
+        <div class="form-group">
+            <h3>Question</h3>
+            <p class="form-control-static">{{ctrl.flashCard.question}}></p>
+        </div>
+        <div class="form-group">
+            <h3>Answer</h3>
+            <p class="form-control-static">{{ctrl.flashCard.answer}}</p>
+        </div>
+        <div class="form-group">
+            <h3>Category</h3>
+            <p class="form-control-static">{{ctrl.flashCard.category}}</p>
+        </div>
+        <div class="form-group">
+            <h3>Sub-Category</h3>
+            <p class="form-control-static">{{ctrl.flashCard.subCategory}}</p>
+        </div>
+        <div class="form-group">
+            <button ui-sref="site.flash-cards.list" class="btn btn-secondary">Back to List</button>
+            <button ui-sref="site.flash-cards.edit({id:ctrl.flashCard._id})" class="btn btn-warning">Edit</button>
+            <button ui-sref="" class="btn btn-danger">Delete</button>
+        </div>
+    </form>
+</div>

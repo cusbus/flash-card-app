@@ -10,11 +10,11 @@
         'client.layout',
 
         //services
-        // 'client.services',
+        'client.services',
 
         //views & controllers
         'client.site',
-        // 'client.crud'
+        'client.crud'
 
     ])
 
@@ -32,11 +32,11 @@
         '$stateProvider',
         '$urlRouterProvider',
         '$locationProvider'
-    ]
-    
+    ];
+
     function RouteConfig($stateProvider, $urlRouterProvider, $locationProvider) {
-        $urlRouterProvider.otherwise('/otherwise')
-        $locationProvider.html5mode(true)
+        $urlRouterProvider.otherwise('/');
+        $locationProvider.html5Mode(true);
     }
 
 })();

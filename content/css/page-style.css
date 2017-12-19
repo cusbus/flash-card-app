@@ -1,0 +1,38 @@
+.fa.infoIcon {
+    color: #3399F3;
+}
+
+.fa.editIcon {
+    color: #D47500;
+}
+
+.fa.deleteIcon {
+    color: #CD0200;
+}
+
+.fa.infoIcon:hover {
+    color: #3399F3;
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+}
+
+.fa.editIcon:hover {
+    color: rgba(212, 117, 0, 0.76);
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+}
+
+.fa.deleteIcon:hover {
+    color: rgba(205, 0, 0, 0.726);
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+}
+
+a.noUnderLine {
+    text-decoration: none;
+}
+
+.container .gandalf-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

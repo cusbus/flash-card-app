@@ -41,7 +41,7 @@
                 flashCardService.update(vm.formData)
                     .then(result => {
                         $log.log(result)
-                        $state.go('site.flash-cards.list', null, {reload: true})
+                        $state.go('site.flash-cards.list')
                     })
                     .catch(err => $log.log(err))
             }
@@ -49,14 +49,14 @@
                 flashCardService.create(vm.formData) 
                     .then(result => {
                         $log.log(result)
-                        $state.go('site.flash-cards.list', null, {reload: true})
+                        $state.go('site.flash-cards')
                     })
                     .catch(err => $log.log(err))
             }
         }
 
         function _goToMainView() {
-            $state.go('site.flash-cards.list', null, {reload: true})
+            $state.go('site.flash-cards')
         }
     }
 

@@ -36,3 +36,15 @@ a.noUnderLine {
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
+.gandalf-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.gandalf-center {
+    margin: auto;
+    width: 50%;
+    border: 0px;
+    padding: 10px;
+}

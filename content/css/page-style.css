@@ -31,3 +31,8 @@
 a.noUnderLine {
     text-decoration: none;
 }
+
+.container .gandalf-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

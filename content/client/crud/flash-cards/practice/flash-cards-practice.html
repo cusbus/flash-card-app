@@ -2,24 +2,24 @@
 <div class="row">
     <div class="col-md-1 gandalf-center">
         <a href="#" class="pull-left">
-            <i class="fa fa-3 fa-chevron-left" aria-hidden="true"></i>
+            <i ng-click="ctrl.updateCarouselIndex('previous')" class="fa fa-lg fa-chevron-left" aria-hidden="true"></i>
         </a>
     </div>
     <div class="list-group col-md-10 animated flipInX" ng-click="ctrl.toggleQA()" ng-show="ctrl.toggleQuestion">
         <a class="list-group-item list-group-item-action flex-column align-items-start">
-            <h2 class="mb-1">QUESTION</h2>
-            <h4 class="text-muted">LA DEE DAAA</h4>
+            <h2 class="mb-1">QUESTION:</h2>
+            <h4 class="text-muted" btf-markdown="ctrl.refreshCarouselCard('Q')"></h4>
         </a>
     </div>
     <div class="list-group col-md-10 animated flipInX" ng-click="ctrl.toggleQA()" ng-show="ctrl.toggleAnswer">
         <a class="list-group-item list-group-item-action flex-column align-items-start">
-            <h2 class="mb-1">ANSWER</h2>
-            <h4 class="text-muted">LA DEE DAAA INDEED</h4>
+            <h2 class="mb-1">ANSWER:</h2>
+            <h4 class="text-muted" btf-markdown="ctrl.refreshCarouselCard('A')"></h4>
         </a>
     </div>
     <div class="col-md-1 gandalf-center">
         <a href="#" class="pull-right">
-            <i class="fa fa-3 fa-chevron-right" aria-hidden="true"></i>
+            <i ng-click="ctrl.updateCarouselIndex('next')" class="fa fa-lg fa-chevron-right" aria-hidden="true"></i>
         </a>
     </div>
 </div>

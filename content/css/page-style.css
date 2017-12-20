@@ -48,3 +48,8 @@ a.noUnderLine {
     border: 0px;
     padding: 10px;
 }
+
+.gandalf-link-style:hover {
+    cursor: pointer;
+    color: hsla(327, 98%, 63%, 0.745);
+}

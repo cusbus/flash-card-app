@@ -272,14 +272,14 @@
                 return { 'flipInX': true };
             }
             if ($state.current.name == 'site.flash-cards.list' && $state.current.name != 'site.flash-cards') {
-                return { 'fadeOut': true };
+                return { 'flipOutX': true };
             } else {
                 return { 'flipInX': true };
             }
         }
 
         function _addAnimationPractice() {
-            if ($state.current.name == 'site.flash-cards' || 'site.flash-cards.practice') {
+            if ($state.current.name == 'site.flash-cards') {
                 return { 'flipInX': true };
             } else {
                 return { 'fadeOut': true };

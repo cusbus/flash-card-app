@@ -21,6 +21,7 @@
         }
 
         function _addAnimationCreate(){
+            if ($state.current.name == 'site.flash-cards.practice') { return {'flipOutX' : true}}
             if ($state.current.name == 'site.flash-cards') { return {'flipInX' : true}}
             if ($state.current.name == 'site.flash-cards.write' && $state.current.name != 'site.flash-cards') 
                 { return {'flipOutX' : true}}
@@ -28,17 +29,16 @@
         }
 
         function _addAnimationList(){
+            if ($state.current.name == 'site.flash-cards.practice') { return {'flipOutX' : true}}
             if ($state.current.name == 'site.flash-cards') { return {'flipInX' : true}}
             if ($state.current.name == 'site.flash-cards.list' && $state.current.name != 'site.flash-cards') 
-                { return {'flipOutX' : true}}
+                { return {'fadeOut' : true}}
             else { return {'flipInX' : true} }
         }
 
         function _addAnimationPractice(){
-            if ($state.current.name == 'site.flash-cards') { return {'flipInX' : true}}
-            if ($state.current.name == 'site.flash-cards.practice' && $state.current.name != 'site.flash-cards') 
-                { return {'flipOutX' : true}}
-            else { return {'flipInX' : true} }
+            if ($state.current.name == 'site.flash-cards' || 'site.flash-cards.practice') { return {'flipInX' : true}}
+            else { return {'fadeOut' : true}}
         }
 
     }

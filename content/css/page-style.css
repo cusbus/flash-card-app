@@ -43,7 +43,7 @@ a.noUnderLine {
 }
 
 .gandalf-center {
-    margin: auto;
+    margin-top: 50px;
     width: 50%;
     border: 0px;
     padding: 10px;

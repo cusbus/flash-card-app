@@ -375,16 +375,21 @@
     FlashCardPracticeController.$inject = ['$log', '$state', 'flashCards'];
 
     function FlashCardPracticeController($log, $state, flashCards) {
-        //public variables
+
         var vm = this;
+
+        //vars for toggling current card
         vm.toggleQuestion = true;
         vm.toggleAnswer = false;
 
         //carousel vars 
         vm.currentIndex = null;
         vm.currentFlashCard = null;
+        vm.currentFlashCardArray = []; // public var for filter func
+        var masterFlashCardArray = []; // backup var for filter change
 
         //public functions
+        vm.filterCardTopics = _filterCardTopics;
         vm.toggleQA = _toggleQA;
         vm.updateCarouselIndex = _updateCarouselIndex;
         vm.refreshCarouselCard = _refreshCarouselCard;
@@ -392,13 +397,28 @@
         init();
 
         function init() {
-            vm.currentFlashCard = flashCards[0];
+            //create master copy of array & declare public var of array
+            masterFlashCardArray = angular.copy(flashCards);
+            vm.currentFlashCardArray = flashCards;
+
+            //carousel starting point along with an index
+            vm.currentFlashCard = vm.currentFlashCardArray[0];
             vm.currentIndex = 0;
         }
 
-        function _toggleQA() {
-            vm.toggleAnswer = !vm.toggleAnswer;
-            vm.toggleQuestion = !vm.toggleQuestion;
+        function _filterCardTopics(topic) {
+
+            //filter array
+            vm.currentFlashCardArray = masterFlashCardArray.filter(function (card) {
+                return card.category == topic || card.subCategory == topic;
+            });
+
+            //reset carousel vars
+            vm.currentFlashCard = vm.currentFlashCardArray[0];
+            vm.currentIndex = 0;
+
+            //invoke refresh
+            _refreshCarouselCard('Q');
         }
 
         function _updateCarouselIndex(direction) {
@@ -421,13 +441,18 @@
         }
 
         function _refreshCarouselCard(qOrA) {
-            vm.currentFlashCard = flashCards[vm.currentIndex];
+            vm.currentFlashCard = vm.currentFlashCardArray[vm.currentIndex];
             if (qOrA == 'Q') {
                 return vm.currentFlashCard.question;
             }
             if (qOrA == 'A') {
                 return vm.currentFlashCard.answer;
             }
+        }
+
+        function _toggleQA() {
+            vm.toggleAnswer = !vm.toggleAnswer;
+            vm.toggleQuestion = !vm.toggleQuestion;
         }
     }
 })();

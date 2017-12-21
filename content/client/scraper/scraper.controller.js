@@ -24,6 +24,7 @@
         }
 
         function _initiateScrape() {
+            vm.tagline = "Engaged!"
             _addAnimation()
             scraperService.readAll()
                 .then(headlines => vm.headlines = headlines.items)
@@ -32,7 +33,7 @@
         function _addAnimation() {
             vm.animated = { 'flipInX': true }
             $timeout(() => vm.animated = null, 500)
-            vm.tagline = "Engaged!"
+            
         }
 
     }

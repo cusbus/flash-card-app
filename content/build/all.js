@@ -212,14 +212,24 @@
 
     angular.module('client.scraper').controller('scraperController', ScraperController);
 
-    ScraperController.$inject = ['$state', '$log', 'scraperService'];
+    ScraperController.$inject = ['$state', '$log', 'scraperService', '$timeout'];
 
-    function ScraperController($state, $log, scraperService) {
+    function ScraperController($state, $log, scraperService, $timeout) {
         var vm = this;
+
+        vm.animated = null;
+        vm.addAnimation = _addAnimation;
 
         init();
 
         function init() {}
+
+        function _addAnimation() {
+            vm.animated = { 'flipInX': true };
+            $timeout(function () {
+                return vm.animated = null;
+            }, 500);
+        }
     }
 })();
 'use strict';
@@ -299,6 +309,27 @@
 'use strict';
 
 ;(function () {
+    angular.module('client.scraper').component('scraper', {
+        templateUrl: 'client/components/scraper/scraper.html',
+        controller: 'scraperComponentController as ctrl'
+    });
+
+    angular.module('client.scraper').controller('scraperComponentController', ScraperComponentController);
+
+    ScraperComponentController.$inject = ['$log', 'scraperService'];
+
+    function ScraperComponentController($log, scraperService) {
+        var vm = this;
+        vm.$onInit = $onInit;
+
+        function $onInit() {
+            $log.log('we have lift off');
+        }
+    }
+})();
+'use strict';
+
+;(function () {
     'use strict';
 
     angular.module('client.crud').controller('flashCardController', FlashCardController);
@@ -317,6 +348,7 @@
 
         function init() {}
 
+        //these need to be refactored!!!!
         function _addAnimationCreate() {
             if ($state.current.name == 'site.flash-cards.practice') {
                 return { 'flipOutX': true };

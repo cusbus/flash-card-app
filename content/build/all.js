@@ -385,8 +385,7 @@
         //carousel vars 
         vm.currentIndex = null;
         vm.currentFlashCard = null;
-        vm.currentFlashCardArray = []; // public var for filter func
-        var masterFlashCardArray = []; // backup var for filter change
+        var currentFlashCardArray = []; // public var for filter func
 
         //public functions
         vm.filterCardTopics = _filterCardTopics;
@@ -397,24 +396,27 @@
         init();
 
         function init() {
-            //create master copy of array & declare public var of array
-            masterFlashCardArray = angular.copy(flashCards);
-            vm.currentFlashCardArray = flashCards;
+            currentFlashCardArray = flashCards;
 
             //carousel starting point along with an index
-            vm.currentFlashCard = vm.currentFlashCardArray[0];
+            vm.currentFlashCard = currentFlashCardArray[0];
             vm.currentIndex = 0;
         }
 
         function _filterCardTopics(topic) {
 
+            //for launch and catch all
+            if (topic == "all") {
+                return currentFlashCardArray = flashCards;
+            }
+
             //filter array
-            vm.currentFlashCardArray = masterFlashCardArray.filter(function (card) {
+            currentFlashCardArray = flashCards.filter(function (card) {
                 return card.category == topic || card.subCategory == topic;
             });
 
             //reset carousel vars
-            vm.currentFlashCard = vm.currentFlashCardArray[0];
+            vm.currentFlashCard = currentFlashCardArray[0];
             vm.currentIndex = 0;
 
             //invoke refresh
@@ -422,17 +424,22 @@
         }
 
         function _updateCarouselIndex(direction) {
+            //ensures questions always displayed when navigating
+            if (vm.toggleAnswer) {
+                _toggleQA();
+            }
+
             //handling previous click
             if (direction == 'previous') {
                 if (vm.currentIndex === 0) {
-                    vm.currentIndex = flashCards.length - 1;
+                    vm.currentIndex = currentFlashCardArray.length - 1;
                 } else {
                     vm.currentIndex = vm.currentIndex - 1;
                 }
             }
             //handling next click
             if (direction == 'next') {
-                if (vm.currentIndex == flashCards.length - 1) {
+                if (vm.currentIndex == currentFlashCardArray.length - 1) {
                     vm.currentIndex = 0;
                 } else {
                     vm.currentIndex = vm.currentIndex + 1;
@@ -441,7 +448,7 @@
         }
 
         function _refreshCarouselCard(qOrA) {
-            vm.currentFlashCard = vm.currentFlashCardArray[vm.currentIndex];
+            vm.currentFlashCard = currentFlashCardArray[vm.currentIndex];
             if (qOrA == 'Q') {
                 return vm.currentFlashCard.question;
             }

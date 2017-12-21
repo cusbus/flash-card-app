@@ -43,8 +43,13 @@ a.noUnderLine {
 }
 
 .gandalf-center {
-    margin: auto;
+    margin-top: 50px;
     width: 50%;
     border: 0px;
     padding: 10px;
+}
+
+.gandalf-link-style:hover {
+    cursor: pointer;
+    color: hsla(327, 98%, 63%, 0.745);
 }

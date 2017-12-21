@@ -14,7 +14,7 @@
     'client.services',
 
     //views & controllers
-    'client.site', 'client.crud']);
+    'client.site', 'client.crud', 'client.scraper']);
 
     angular.module('client').config(RouteConfig).run(StateErrorHandler);
 
@@ -157,6 +157,29 @@
 ;(function () {
     'use strict';
 
+    angular.module('client.scraper', ['ui.router']);
+
+    angular.module('client.scraper').config(RouteConfig);
+
+    RouteConfig.$inject = ['$stateProvider'];
+
+    function RouteConfig($stateProvider) {
+        $stateProvider.state('site.scraper', {
+            url: '/scraper',
+            views: {
+                'content@site': {
+                    templateUrl: 'client/scraper/scraper.html',
+                    controller: 'scraperController as ctrl'
+                }
+            }
+        });
+    }
+})();
+'use strict';
+
+;(function () {
+    'use strict';
+
     angular.module('client.services', []);
 })();
 'use strict';
@@ -180,6 +203,23 @@
                 }
             }
         });
+    }
+})();
+'use strict';
+
+;(function () {
+    "use strict";
+
+    angular.module('client.scraper').controller('scraperController', ScraperController);
+
+    ScraperController.$inject = ['$state', '$log', 'scraperService'];
+
+    function ScraperController($state, $log, scraperService) {
+        var vm = this;
+
+        init();
+
+        function init() {}
     }
 })();
 'use strict';
@@ -232,6 +272,33 @@
 'use strict';
 
 ;(function () {
+    angular.module('client.services').factory('scraperService', ScraperService);
+
+    ScraperService.$inject = ['$http', '$q'];
+
+    function ScraperService($http, $q) {
+        return {
+            readAll: _readAll
+        };
+
+        function _readAll() {
+            return $http.get('/api/scraper').then(xhrSuccess).catch(onError);
+        }
+
+        //response handlers
+        function xhrSuccess(response) {
+            return response.data;
+        }
+
+        function onError(error) {
+            console.log(error.data);
+            return $q.reject(error.data);
+        }
+    }
+})();
+'use strict';
+
+;(function () {
     'use strict';
 
     angular.module('client.crud').controller('flashCardController', FlashCardController);
@@ -251,6 +318,9 @@
         function init() {}
 
         function _addAnimationCreate() {
+            if ($state.current.name == 'site.flash-cards.practice') {
+                return { 'flipOutX': true };
+            }
             if ($state.current.name == 'site.flash-cards') {
                 return { 'flipInX': true };
             }
@@ -262,6 +332,9 @@
         }
 
         function _addAnimationList() {
+            if ($state.current.name == 'site.flash-cards.practice') {
+                return { 'flipOutX': true };
+            }
             if ($state.current.name == 'site.flash-cards') {
                 return { 'flipInX': true };
             }
@@ -275,11 +348,8 @@
         function _addAnimationPractice() {
             if ($state.current.name == 'site.flash-cards') {
                 return { 'flipInX': true };
-            }
-            if ($state.current.name == 'site.flash-cards.practice' && $state.current.name != 'site.flash-cards') {
-                return { 'flipOutX': true };
             } else {
-                return { 'flipInX': true };
+                return { 'fadeOut': true };
             }
         }
     }
@@ -372,18 +442,86 @@
     FlashCardPracticeController.$inject = ['$log', '$state', 'flashCards'];
 
     function FlashCardPracticeController($log, $state, flashCards) {
-        //public variables
+
         var vm = this;
+
+        //vars for toggling current card
         vm.toggleQuestion = true;
         vm.toggleAnswer = false;
 
+        //carousel vars 
+        vm.currentIndex = null;
+        vm.currentFlashCard = null;
+        var currentFlashCardArray = []; // public var for filter func
+
         //public functions
+        vm.filterCardTopics = _filterCardTopics;
         vm.toggleQA = _toggleQA;
+        vm.updateCarouselIndex = _updateCarouselIndex;
+        vm.refreshCarouselCard = _refreshCarouselCard;
 
         init();
 
         function init() {
-            vm.flashCards = flashCards;
+            currentFlashCardArray = flashCards;
+
+            //carousel starting point along with an index
+            vm.currentFlashCard = currentFlashCardArray[0];
+            vm.currentIndex = 0;
+        }
+
+        function _filterCardTopics(topic) {
+
+            //for launch and catch all
+            if (topic == "all") {
+                return currentFlashCardArray = flashCards;
+            }
+
+            //filter array
+            currentFlashCardArray = flashCards.filter(function (card) {
+                return card.category == topic || card.subCategory == topic;
+            });
+
+            //reset carousel vars
+            vm.currentFlashCard = currentFlashCardArray[0];
+            vm.currentIndex = 0;
+
+            //invoke refresh
+            _refreshCarouselCard('Q');
+        }
+
+        function _updateCarouselIndex(direction) {
+            //ensures questions always displayed when navigating
+            if (vm.toggleAnswer) {
+                _toggleQA();
+            }
+
+            //handling previous click
+            if (direction == 'previous') {
+                if (vm.currentIndex === 0) {
+                    vm.currentIndex = currentFlashCardArray.length - 1;
+                } else {
+                    vm.currentIndex = vm.currentIndex - 1;
+                }
+            }
+            //handling next click
+            if (direction == 'next') {
+                if (vm.currentIndex == currentFlashCardArray.length - 1) {
+                    vm.currentIndex = 0;
+                } else {
+                    vm.currentIndex = vm.currentIndex + 1;
+                }
+            }
+        }
+
+        function _refreshCarouselCard(qOrA) {
+            vm.currentFlashCard = currentFlashCardArray[vm.currentIndex];
+            if (qOrA == 'Q') {
+                return vm.currentFlashCard.question;
+            }
+            if (qOrA == 'A') {
+                return vm.currentFlashCard.answer;
+            }
         }
 
         function _toggleQA() {

@@ -14,7 +14,7 @@
     'client.services',
 
     //views & controllers
-    'client.site', 'client.crud']);
+    'client.site', 'client.crud', 'client.scraper']);
 
     angular.module('client').config(RouteConfig).run(StateErrorHandler);
 
@@ -157,6 +157,29 @@
 ;(function () {
     'use strict';
 
+    angular.module('client.scraper', ['ui.router']);
+
+    angular.module('client.scraper').config(RouteConfig);
+
+    RouteConfig.$inject = ['$stateProvider'];
+
+    function RouteConfig($stateProvider) {
+        $stateProvider.state('site.scraper', {
+            url: '/scraper',
+            views: {
+                'content@site': {
+                    templateUrl: 'client/scraper/scraper.html',
+                    controller: 'scraperController as ctrl'
+                }
+            }
+        });
+    }
+})();
+'use strict';
+
+;(function () {
+    'use strict';
+
     angular.module('client.services', []);
 })();
 'use strict';
@@ -180,6 +203,23 @@
                 }
             }
         });
+    }
+})();
+'use strict';
+
+;(function () {
+    "use strict";
+
+    angular.module('client.scraper').controller('scraperController', ScraperController);
+
+    ScraperController.$inject = ['$state', '$log'];
+
+    function ScraperController($state, $log) {
+        var vm = this;
+
+        init();
+
+        function init() {}
     }
 })();
 'use strict';

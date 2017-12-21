@@ -38,7 +38,7 @@
         function _filterCardTopics(topic){
 
             //for launch and catch all
-            if (topic == "all") {
+            if (!topic) {
                 return currentFlashCardArray = flashCards
             }
 

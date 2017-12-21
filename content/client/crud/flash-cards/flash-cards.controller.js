@@ -20,6 +20,7 @@
 
         }
 
+        //these need to be refactored!!!!
         function _addAnimationCreate() {
             if ($state.current.name == 'site.flash-cards.practice') { return { 'flipOutX': true } }
             if ($state.current.name == 'site.flash-cards') { return { 'flipInX': true } }
@@ -35,7 +36,7 @@
         }
 
         function _addAnimationPractice() {
-            if ($state.current.name == 'site.flash-cards') { return { 'flipInX': true } }
+            if ($state.current.name == 'site.flash-cards' || 'site.flash-cards.practice') { return { 'flipInX': true } }
             else { return { 'fadeOut': true } }
         }
 

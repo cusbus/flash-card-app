@@ -1,12 +1,13 @@
 const router = require('express').Router()
 const clientRoutes = require('./client.routes')
 const flashCardRoutes = require('./flash-cards.routes')
+const scraperRoutes = require('./scraper.routes')
 module.exports = router;
 
 
 // API routes here
 router.use('/api/flash-cards', flashCardRoutes)
-
+router.use('/api/scraper', scraperRoutes)
 
 // API error handlers - (all routes must be registered before this)
 useAPIErrorHandlers(router)

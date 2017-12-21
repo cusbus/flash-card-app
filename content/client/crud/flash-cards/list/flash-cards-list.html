@@ -1,4 +1,4 @@
-<div style="margin-top: 50px;">
+<div class="animated fadeIn">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -8,13 +8,16 @@
                 <th scope="col">Actions</th>
             </tr>
         </thead>
-        <tbody>
-            <tr ng-repeat="flashCard in ctrl.flashCards track by $index" ng-mouseover="hoverEdit = true" ng-mouseleave="hoverEdit = false">
+        <tbody class="animate wobble">
+            <tr ng-repeat="flashCard in ctrl.flashCards track by $index" 
+                ng-mouseover="hoverEdit = true" 
+                ng-mouseleave="hoverEdit = false"
+            >
                 <td>{{flashCard.category}}</td>
                 <td>{{flashCard.subCategory}}</td>
                 <td>{{flashCard.question}}</td>
                 <td>
-                    <div ng-show="hoverEdit">
+                    <div ng-show="hoverEdit" ng-class="{'animated fadeIn': hoverEdit}">
                         <span>
                             <a ui-sref="site.flash-cards.detail({id:flashCard._id})" class="noUnderLine">
                                 <i class="fa fa-info-circle fa-sm infoIcon" aria-hidden="true"></i>

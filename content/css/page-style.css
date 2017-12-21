@@ -37,9 +37,9 @@ a.noUnderLine {
     margin-bottom: 50px;
 }
 
-.gandalf-container {
-    margin-top: 50px;
-    margin-bottom: 50px;
+.gandalf-card-margin {
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .gandalf-center {
@@ -49,7 +49,22 @@ a.noUnderLine {
     padding: 10px;
 }
 
+/* link color and styling */
 .gandalf-link-style:hover {
     cursor: pointer;
-    color: hsla(327, 98%, 63%, 0.745);
+    color: #3399F3 !important;
+}
+
+.gandalf-link-style:hover {
+    cursor: pointer;
+    color: #3399F3;
+}
+
+.gimli.gandalf-page-link {
+    color: #3399F3 !important;
+}
+
+.gimli.gandalf-page-link:hover {
+    cursor: pointer;
+    color: #0c73cd !important;
 }

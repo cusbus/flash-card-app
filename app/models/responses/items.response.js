@@ -4,7 +4,7 @@ class ItemsResponse extends SuccessResponse {
 
     constructor(data){
         super()
-        this.item = data
+        this.items = data
     }
 }
 

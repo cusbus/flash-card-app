@@ -212,9 +212,9 @@
 
     angular.module('client.scraper').controller('scraperController', ScraperController);
 
-    ScraperController.$inject = ['$state', '$log'];
+    ScraperController.$inject = ['$state', '$log', 'scraperService'];
 
-    function ScraperController($state, $log) {
+    function ScraperController($state, $log, scraperService) {
         var vm = this;
 
         init();
@@ -256,6 +256,33 @@
 
         function _delete(id) {
             return $http.delete('/api/flash-cards/' + id).then(xhrSuccess).catch(onError);
+        }
+
+        //response handlers
+        function xhrSuccess(response) {
+            return response.data;
+        }
+
+        function onError(error) {
+            console.log(error.data);
+            return $q.reject(error.data);
+        }
+    }
+})();
+'use strict';
+
+;(function () {
+    angular.module('client.services').factory('scraperService', ScraperService);
+
+    ScraperService.$inject = ['$http', '$q'];
+
+    function ScraperService($http, $q) {
+        return {
+            readAll: _readAll
+        };
+
+        function _readAll() {
+            return $http.get('/api/scraper').then(xhrSuccess).catch(onError);
         }
 
         //response handlers

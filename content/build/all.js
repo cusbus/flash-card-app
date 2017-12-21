@@ -215,20 +215,35 @@
     ScraperController.$inject = ['$state', '$log', 'scraperService', '$timeout'];
 
     function ScraperController($state, $log, scraperService, $timeout) {
+
+        //public vars
         var vm = this;
-
         vm.animated = null;
-        vm.addAnimation = _addAnimation;
+        vm.tagline = null;
+        vm.headlines = null;
 
-        init();
+        //public functions
+        vm.$onInit = init;
+        vm.initiateScrape = _initiateScrape;
 
-        function init() {}
+        function init() {
+            vm.tagline = 'Click to engage.';
+            _addAnimation();
+        }
+
+        function _initiateScrape() {
+            _addAnimation();
+            scraperService.readAll().then(function (headlines) {
+                return vm.headlines = headlines.items;
+            });
+        }
 
         function _addAnimation() {
             vm.animated = { 'flipInX': true };
             $timeout(function () {
                 return vm.animated = null;
             }, 500);
+            vm.tagline = "Engaged!";
         }
     }
 })();
@@ -311,19 +326,35 @@
 ;(function () {
     angular.module('client.scraper').component('scraper', {
         templateUrl: 'client/components/scraper/scraper.html',
-        controller: 'scraperComponentController as ctrl'
+        controller: 'scraperComponentController as ctrl',
+        bindings: {
+            headlines: '<'
+        }
     });
 
     angular.module('client.scraper').controller('scraperComponentController', ScraperComponentController);
 
-    ScraperComponentController.$inject = ['$log', 'scraperService'];
+    ScraperComponentController.$inject = ['$log', '$window'];
 
-    function ScraperComponentController($log, scraperService) {
+    function ScraperComponentController($log, $window) {
         var vm = this;
+        vm.isFocus = false;
+
+        //public functions
         vm.$onInit = $onInit;
+        vm.checkTheHeadlines = _checkTheHeadLines;
+        vm.redirect = _redirect;
 
         function $onInit() {
             $log.log('we have lift off');
+        }
+
+        function _checkTheHeadLines() {
+            return vm.headlines;
+        }
+
+        function _redirect(nprURL) {
+            $window.open(nprURL, '_blank');
         }
     }
 })();
@@ -378,7 +409,7 @@
         }
 
         function _addAnimationPractice() {
-            if ($state.current.name == 'site.flash-cards') {
+            if ($state.current.name == 'site.flash-cards' || 'site.flash-cards.practice') {
                 return { 'flipInX': true };
             } else {
                 return { 'fadeOut': true };
@@ -505,7 +536,7 @@
         function _filterCardTopics(topic) {
 
             //for launch and catch all
-            if (topic == "all") {
+            if (!topic) {
                 return currentFlashCardArray = flashCards;
             }
 

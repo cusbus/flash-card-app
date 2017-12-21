@@ -2,10 +2,10 @@
     <div class="container gandalf-container">
         <div class="row">
             <!-- <div class="list-group col-md-4 animated" ng-class="ctrl.addAnimation()"> -->
-            <div class="list-group col-md-4 animated" ng-click="ctrl.addAnimation()" ng-class="ctrl.animated">
+            <div class="list-group col-md-4 animated" ng-click="ctrl.initiateScrape()" ng-class="ctrl.animated">
                 <a class="list-group-item list-group-item-action flex-column align-items-start">
-                    <p class="mb-1">Start Scraping</p>
-                    <small class="text-muted">Grab the current NPR Headlines.</small>
+                    <p class="mb-1">NPR HomePage Scraper</p>
+                    <small class="text-muted">{{ctrl.tagline}}</small>
                 </a>
             </div>
         </div>
@@ -14,5 +14,5 @@
 </div>
 
 <div class="container gandalf-container">
-    <scraper></scraper>
+    <scraper headlines="ctrl.headlines"></scraper>
 </div>

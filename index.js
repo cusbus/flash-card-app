@@ -27,7 +27,7 @@ app.use(router)
 // start mongo connection pool, then fire up express app
 mongo.connect(process.env.MONGODB_URL)
     .then(() => app.listen(port))
-    .then(() => console.log(`learnin\' stuff on: ${port}`))
+    .then(() => console.log(`the path to the unicorn begins on: ${port}`))
     .catch((err) => {
         console.error(err)
         process.exit(1)

@@ -1,13 +1,13 @@
 <div class="container">
     <div class="container gandalf-container">
         <div class="row">
-            <div class="list-group col-md-4 animated" ng-class="ctrl.addAnimationCreate()">
+            <div class="list-group col-md-4 animated" ng-class="ctrl.addAnimationCreateView('write')">
                 <a ui-sref="site.flash-cards.write" class="list-group-item list-group-item-action flex-column align-items-start">
                     <p class="mb-1">Create</p>
                     <small class="text-muted">Add an additional Flash Card.</small>
                 </a>
             </div>
-            <div class="list-group col-md-4 animated" ng-class="ctrl.addAnimationList()">
+            <div class="list-group col-md-4 animated" ng-class="ctrl.addAnimationCreateView('list')">
                 <a ui-sref="site.flash-cards.list" class="list-group-item list-group-item-action flex-column align-items-start">
                     <p class="mb-1">View All</p>
                     <small class="text-muted">Check all of the current Flash Cards.</small>

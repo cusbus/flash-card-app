@@ -20,17 +20,17 @@
                     <div ng-show="hoverEdit" ng-class="{'animated fadeIn': hoverEdit}">
                         <span>
                             <a ui-sref="site.flash-cards.detail({id:flashCard._id})" class="noUnderLine">
-                                <i class="fa fa-info-circle fa-sm infoIcon" aria-hidden="true"></i>
+                                <i class="fa fa-info fa-sm infoIcon" aria-hidden="true"></i>
                             </a>
                         </span>
                         <span>
                             <a ui-sref="site.flash-cards.edit({id:flashCard._id})" class="noUnderLine">
-                                <i class="fa fa-pencil-square fa-sm editIcon" aria-hidden="true"></i>
+                                <i class="fa fa-pencil fa-sm editIcon" aria-hidden="true"></i>
                             </a>
                         </span>
                         <span>
                             <a ng-click="ctrl.delete(flashCard._id, $index)" class="noUnderLine">
-                                <i class="fa fa-times-circle fa-sm deleteIcon" aria-hidden="true"></i>
+                                <i class="fa fa-times fa-sm deleteIcon" aria-hidden="true"></i>
                             </a>
                         </span>
                     </div>

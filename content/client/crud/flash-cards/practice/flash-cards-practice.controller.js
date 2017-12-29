@@ -92,9 +92,8 @@
         }
 
         function _updateBucket(adjuster) {
-            debugger
             if (adjuster == "increment") {
-                //line 98 can be deleted as soon as all legacy data has bucket prop
+                //line below can be deleted as soon as all legacy data has bucket prop
                 if (!vm.currentFlashCard.bucket) { vm.currentFlashCard.bucket = 1 } 
                 
                 vm.currentFlashCard.bucket += 1
@@ -110,7 +109,6 @@
                 vm.currentFlashCard.bucket = 1
                 flashCardService.update(vm.currentFlashCard)
                     .then(result => {
-                        debugger
                         $log.log(result)
                         _updateCarouselIndex('next')
                     })

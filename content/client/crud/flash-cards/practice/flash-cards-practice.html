@@ -46,8 +46,8 @@
     <label>Did you get this right?</label>
     <div class="row">
         <div class="col-md-10 pull-left">
-            <button class="btn btn-outline-info">Yes, Let's GO!</button>
-            <button class="btn btn-outline-danger">Gaaaah, GG</button>
+            <button ng-click="ctrl.updateBucket('increment')" class="btn btn-outline-info">Yes, Let's GO!</button>
+            <button ng-click="ctrl.updateBucket('decrement')" class="btn btn-outline-danger">Gaaaah, GG</button>
         </div>
     </div>
 </div>

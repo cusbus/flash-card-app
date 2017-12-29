@@ -4,12 +4,14 @@
             <legend>{{ctrl.tagline}}</legend>
             <div class="form-group">
                 <label for="question">Question</label>
-                <textarea rows="4" ng-model="ctrl.formData.question" name="question" class="form-control" aria-describedby="questionHelp" placeholder="What is a JavaScript?" required></textarea>
+                <textarea rows="4" ng-model="ctrl.formData.question" name="question" class="form-control" aria-describedby="questionHelp"
+                    placeholder="What is a JavaScript?" required></textarea>
                 <!-- <small name="questionHelp" class="form-text text-muted">Must enter a question.</small> -->
             </div>
             <div class="form-group">
                 <label for="answer">Answer</label>
-                <textarea rows="4" ng-model="ctrl.formData.answer" class="form-control" name="answer" placeholder="JavaScript is a programming language that allows you to implement complex things on web pages." required></textarea>
+                <textarea rows="4" ng-model="ctrl.formData.answer" class="form-control" name="answer" placeholder="JavaScript is a programming language that allows you to implement complex things on web pages."
+                    required></textarea>
             </div>
             <div class="form-group">
                 <label for="category">Category</label>
@@ -21,15 +23,25 @@
                 </select>
             </div>
             <div class="form-group">
-                    <label for="subCategory">Sub-Category</label>
-                    <select class="form-control" ng-model="ctrl.formData.subCategory" name="subCategory" required>
-                        <option value="" disabled class="text-muted">--Make a Selection--</option>
-                        <option value="htmlCss">HTML/CSS</option>
-                        <option value="javascript">JavaScript</option>
-                        <option value="angular">Angular 1.x</option>
-                        <option value="express">Express</option>
+                <label for="subCategory">Sub-Category</label>
+                <select class="form-control" ng-model="ctrl.formData.subCategory" name="subCategory" required>
+                    <option value="" disabled class="text-muted">--Make a Selection--</option>
+                    <option value="htmlCss">HTML/CSS</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="angular">Angular 1.x</option>
+                    <option value="express">Express</option>
+                </select>
+            </div>
+            <div class="form-group" ng-show="ctrl.editMode">
+                <label for="bucket">Current Bucket</label>
+                <select class="form-control" ng-model="ctrl.formData.bucket" name="bucket" required>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
                     </select>
-                </div>
+            </div>
             <button ng-click="ctrl.submit()" class="btn btn-info">Submit</button>
             <button ng-click="ctrl.goToMainView()" class="btn btn-secondary">Back to the Top</button>
         </fieldset>

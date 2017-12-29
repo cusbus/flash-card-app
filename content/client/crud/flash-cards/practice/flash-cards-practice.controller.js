@@ -4,9 +4,9 @@
     angular.module('client.crud')
         .controller('flashCardPracticeController', FlashCardPracticeController)
 
-    FlashCardPracticeController.$inject = ['$log', '$state', 'flashCards']
+    FlashCardPracticeController.$inject = ['$log', '$state', 'flashCardService', 'flashCards']
 
-    function FlashCardPracticeController($log, $state, flashCards) {
+    function FlashCardPracticeController($log, $state, flashCardService, flashCards) {
         
         let vm = this
         
@@ -24,6 +24,7 @@
         vm.toggleQA = _toggleQA
         vm.updateCarouselIndex = _updateCarouselIndex
         vm.refreshCarouselCard = _refreshCarouselCard
+        vm.updateBucket = _updateBucket
 
         init()
 
@@ -85,11 +86,35 @@
             if (qOrA == 'A') { return vm.currentFlashCard.answer }
         }
 
-
         function _toggleQA(){
             vm.toggleAnswer = !vm.toggleAnswer
             vm.toggleQuestion = !vm.toggleQuestion
         }
+
+        function _updateBucket(adjuster) {
+            debugger
+            if (adjuster == "increment") {
+                vm.currentFlashCard.bucket = vm.currentFlashCard.bucket + 1
+                flashCardService.update(vm.currentFlashCard)
+                    .then(result => {
+                        $log.log(result)
+                        _updateCarouselIndex('next')
+                    })
+                    .catch(err => $log.log(err))
+             }
+
+            if (adjuster == "decrement") {
+                vm.currentFlashCard.bucket = 1
+                flashCardService.update(vm.currentFlashCard)
+                    .then(result => {
+                        debugger
+                        $log.log(result)
+                        _updateCarouselIndex('next')
+                    })
+                    .catch(err => $log.log(err))
+             }
+        }
+
 
     }
 

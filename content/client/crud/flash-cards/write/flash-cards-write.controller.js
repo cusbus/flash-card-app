@@ -12,6 +12,7 @@
         // public variables
         vm.formData = {};
         vm.tagline = null
+        vm.editMode = false
 
         // public functions
         vm.submit = _submit
@@ -21,9 +22,11 @@
 
         function init(){
             _checkAndSetMode()
+            if (flashCard) { vm.editMode = true }
         }
 
         function _checkAndSetMode(){
+            //edit mode
             if ($state.current.name === 'site.flash-cards.edit'){
                 vm.tagline = "Edit"
                 vm.formData = {
@@ -31,13 +34,15 @@
                     question: flashCard.question,
                     answer: flashCard.answer,
                     category: flashCard.category,
-                    subCategory: flashCard.subCategory
+                    subCategory: flashCard.subCategory,
+                    bucket: flashCard.bucket
                 }
+            //create mode
             } else { vm.tagline = 'Create' }
         }
 
         function _submit(){
-            if (vm.formData._id) {
+            if (flashCard) {
                 flashCardService.update(vm.formData)
                     .then(result => {
                         $log.log(result)
@@ -46,6 +51,7 @@
                     .catch(err => $log.log(err))
             }
             else {
+                vm.formData.bucket = 1;
                 flashCardService.create(vm.formData) 
                     .then(result => {
                         $log.log(result)

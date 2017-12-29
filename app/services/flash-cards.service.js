@@ -40,7 +40,8 @@ function _create(flashCard){
         question: flashCard.question,
         answer: flashCard.answer,
         category: flashCard.category,
-        subCategory: flashCard.subCategory
+        subCategory: flashCard.subCategory,
+        bucket: flashCard.bucket
     }
 
     return conn.db().collection('flashCards').insert(flashCard)

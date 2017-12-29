@@ -487,9 +487,9 @@
 
     angular.module('client.crud').controller('flashCardPracticeController', FlashCardPracticeController);
 
-    FlashCardPracticeController.$inject = ['$log', '$state', 'flashCards'];
+    FlashCardPracticeController.$inject = ['$log', '$state', 'flashCardService', 'flashCards'];
 
-    function FlashCardPracticeController($log, $state, flashCards) {
+    function FlashCardPracticeController($log, $state, flashCardService, flashCards) {
 
         var vm = this;
 
@@ -507,6 +507,7 @@
         vm.toggleQA = _toggleQA;
         vm.updateCarouselIndex = _updateCarouselIndex;
         vm.refreshCarouselCard = _refreshCarouselCard;
+        vm.updateBucket = _updateBucket;
 
         init();
 
@@ -576,6 +577,30 @@
             vm.toggleAnswer = !vm.toggleAnswer;
             vm.toggleQuestion = !vm.toggleQuestion;
         }
+
+        function _updateBucket(adjuster) {
+            debugger;
+            if (adjuster == "increment") {
+                vm.currentFlashCard.bucket = vm.currentFlashCard.bucket + 1;
+                flashCardService.update(vm.currentFlashCard).then(function (result) {
+                    $log.log(result);
+                    _updateCarouselIndex('next');
+                }).catch(function (err) {
+                    return $log.log(err);
+                });
+            }
+
+            if (adjuster == "decrement") {
+                vm.currentFlashCard.bucket = 1;
+                flashCardService.update(vm.currentFlashCard).then(function (result) {
+                    debugger;
+                    $log.log(result);
+                    _updateCarouselIndex('next');
+                }).catch(function (err) {
+                    return $log.log(err);
+                });
+            }
+        }
     }
 })();
 'use strict';
@@ -593,6 +618,7 @@
         // public variables
         vm.formData = {};
         vm.tagline = null;
+        vm.editMode = false;
 
         // public functions
         vm.submit = _submit;
@@ -602,9 +628,13 @@
 
         function init() {
             _checkAndSetMode();
+            if (flashCard) {
+                vm.editMode = true;
+            }
         }
 
         function _checkAndSetMode() {
+            //edit mode
             if ($state.current.name === 'site.flash-cards.edit') {
                 vm.tagline = "Edit";
                 vm.formData = {
@@ -612,7 +642,9 @@
                     question: flashCard.question,
                     answer: flashCard.answer,
                     category: flashCard.category,
-                    subCategory: flashCard.subCategory
+                    subCategory: flashCard.subCategory,
+                    bucket: flashCard.bucket
+                    //create mode
                 };
             } else {
                 vm.tagline = 'Create';
@@ -620,7 +652,7 @@
         }
 
         function _submit() {
-            if (vm.formData._id) {
+            if (flashCard) {
                 flashCardService.update(vm.formData).then(function (result) {
                     $log.log(result);
                     $state.go('site.flash-cards.list');
@@ -628,6 +660,7 @@
                     return $log.log(err);
                 });
             } else {
+                vm.formData.bucket = 1;
                 flashCardService.create(vm.formData).then(function (result) {
                     $log.log(result);
                     $state.go('site.flash-cards');

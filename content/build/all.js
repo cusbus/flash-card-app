@@ -581,7 +581,12 @@
         function _updateBucket(adjuster) {
             debugger;
             if (adjuster == "increment") {
-                vm.currentFlashCard.bucket = vm.currentFlashCard.bucket + 1;
+                //line 98 can be deleted as soon as all legacy data has bucket prop
+                if (!vm.currentFlashCard.bucket) {
+                    vm.currentFlashCard.bucket = 1;
+                }
+
+                vm.currentFlashCard.bucket += 1;
                 flashCardService.update(vm.currentFlashCard).then(function (result) {
                     $log.log(result);
                     _updateCarouselIndex('next');

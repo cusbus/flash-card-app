@@ -9,7 +9,7 @@
 
     function RouteConfig($stateProvider){
         $stateProvider
-            .state('site.flash-cards.manage', {
+            .state('site.flash-cards.manage-cards', {
                 url: '/manage',
                 views: {
                     'content@site': {
@@ -18,7 +18,7 @@
                     }
                 }
             })
-            .state('site.flash-cards.manage.write', {
+            .state('site.flash-cards.manage-cards.write', {
                 url: '/create',
                 views: {
                     'card-content': {
@@ -30,7 +30,7 @@
                     flashCard: checkForIdParam
                 }
             })
-            .state('site.flash-cards.manage.edit', {
+            .state('site.flash-cards.manage-cards.edit', {
                 url: '/edit/:id',
                 views: {
                     'card-content': {
@@ -42,7 +42,7 @@
                     flashCard: checkForIdParam
                 }
             })
-            .state('site.flash-cards.manage.list', {
+            .state('site.flash-cards.manage-cards.list', {
                 url: '/list',
                 views: {
                     'card-content': {
@@ -54,7 +54,7 @@
                     flashCards: getAllFlashCards
                 }
             })
-            .state('site.flash-cards.detail', {
+            .state('site.flash-cards.manage-cards.detail', {
                 url: '/details/:id',
                 views: {
                     'card-content': {

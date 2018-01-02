@@ -27,7 +27,7 @@
 
         function _checkAndSetMode(){
             //edit mode
-            if ($state.current.name === 'site.flash-cards.edit'){
+            if ($state.current.name === 'site.flash-cards.manage-cards.edit'){
                 vm.tagline = "Edit"
                 vm.formData = {
                     _id: flashCard._id,
@@ -46,7 +46,7 @@
                 flashCardService.update(vm.formData)
                     .then(result => {
                         $log.log(result)
-                        $state.go('site.flash-cards.list')
+                        $state.go('site.flash-cards.manage-cards.list')
                     })
                     .catch(err => $log.log(err))
             }
@@ -55,14 +55,14 @@
                 flashCardService.create(vm.formData) 
                     .then(result => {
                         $log.log(result)
-                        $state.go('site.flash-cards')
+                        $state.go('site.flash-cards.manage-cards')
                     })
                     .catch(err => $log.log(err))
             }
         }
 
         function _goToMainView() {
-            $state.go('site.flash-cards.manage')
+            $state.go('site.flash-cards.manage-cards')
         }
     }
 

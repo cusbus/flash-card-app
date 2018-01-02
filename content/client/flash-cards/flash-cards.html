@@ -1,20 +1,20 @@
 <div class="container">
     <div class="container gandalf-container">
         <div class="row">
-            <div class="list-group col-md-4 animated" ng-class="ctrl.addAnimationCreateView('list')">
+            <div class="list-group col-md-4 animated" ng-class="ctrl.addAnimation()">
                 <a ui-sref="site.flash-cards.practice" class="list-group-item list-group-item-action flex-column align-items-start">
                     <p class="mb-1">Practice</p>
                     <small class="text-muted">You know what this does.</small>
                 </a>
             </div>
-            <div class="list-group col-md-4 animated" ng-class="ctrl.addAnimationCreateView('write')">
-                <a ui-sref="site.flash-cards.manage" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="list-group col-md-4 animated" ng-class="ctrl.addAnimation(true)">
+                <a ui-sref="site.flash-cards.manage-cards" class="list-group-item list-group-item-action flex-column align-items-start">
                     <p class="mb-1">Manage Cards</p>
                     <small class="text-muted">Create, Edit, Delete Cards.</small>
                 </a>
             </div>
-            <div class="list-group col-md-4 animated" ng-class="ctrl.addAnimationPractice()">
-                <a ui-sref="site.flash-cards.practice" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="list-group col-md-4 animated" ng-class="ctrl.addAnimation(true)">
+                <a ui-sref="site.flash-cards.manage-users" class="list-group-item list-group-item-action flex-column align-items-start">
                     <p class="mb-1">Manage Users</p>
                     <small class="text-muted">Create, Edit, Delete Users.</small>
                 </a>

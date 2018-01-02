@@ -62,7 +62,7 @@
         }
 
         function _goToMainView() {
-            $state.go('site.flash-cards')
+            $state.go('site.flash-cards.manage')
         }
     }
 

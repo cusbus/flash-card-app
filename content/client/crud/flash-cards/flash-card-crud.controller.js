@@ -2,11 +2,11 @@
     'use strict';
 
     angular.module('client.crud')
-        .controller('flashCardController', FlashCardController)
+        .controller('flashCardCrudController', FlashCardCrudController)
 
-    FlashCardController.$inject = ['$state', '$log']
+    FlashCardCrudController.$inject = ['$state', '$log']
 
-    function FlashCardController($state, $log) {
+    function FlashCardCrudController($state, $log) {
         let vm = this
 
         //public functions

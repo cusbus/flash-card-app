@@ -9,16 +9,16 @@
 
     function RouteConfig($stateProvider){
         $stateProvider
-            .state('site.flash-cards', {
-                url: '/flash-cards',
+            .state('site.flash-cards.manage', {
+                url: '/manage',
                 views: {
                     'content@site': {
-                        templateUrl: 'client/crud/flash-cards/flash-cards.html',
-                        controller: 'flashCardController as ctrl'
+                        templateUrl: 'client/crud/flash-cards/flash-card-crud.html',
+                        controller: 'flashCardCrudController as ctrl'
                     }
                 }
             })
-            .state('site.flash-cards.write', {
+            .state('site.flash-cards.manage.write', {
                 url: '/create',
                 views: {
                     'card-content': {
@@ -30,7 +30,7 @@
                     flashCard: checkForIdParam
                 }
             })
-            .state('site.flash-cards.edit', {
+            .state('site.flash-cards.manage.edit', {
                 url: '/edit/:id',
                 views: {
                     'card-content': {
@@ -42,7 +42,7 @@
                     flashCard: checkForIdParam
                 }
             })
-            .state('site.flash-cards.list', {
+            .state('site.flash-cards.manage.list', {
                 url: '/list',
                 views: {
                     'card-content': {
@@ -66,27 +66,16 @@
                     flashCard: checkForIdParam
                 }
             })
-            .state('site.flash-cards.practice', {
-                url: '/practice',
-                views: {
-                    'card-content': {
-                        templateUrl: 'client/crud/flash-cards/practice/flash-cards-practice.html',
-                        controller: 'flashCardPracticeController as ctrl'
-                    }
-                },
-                resolve: { 
-                    flashCards: getAllFlashCards
-                }
-            })
 
             getAllFlashCards.$inject = ['flashCardService']
-            checkForIdParam.$inject = ['flashCardService', '$stateParams']
 
             function getAllFlashCards(flashCardService){
                 return flashCardService.readAll()
                     .then(flashCards => flashCards.items)
             }
 
+            checkForIdParam.$inject = ['flashCardService', '$stateParams']
+            
             function checkForIdParam(flashCardService, $stateParams) {
                 if ($stateParams.id) {
                     return flashCardService.readById($stateParams.id)

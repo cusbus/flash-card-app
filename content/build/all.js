@@ -128,8 +128,6 @@
 ;(function () {
     'use strict';
 
-    angular.module('client.crud', ['ui.router']);
-
     angular.module('client.crud').config(RouteConfig);
 
     RouteConfig.$inject = ['$stateProvider'];
@@ -143,7 +141,26 @@
                     controller: 'userCrudController as ctrl'
                 }
             }
-        });
+        }).state('site.flash-cards.manage-users.write', {
+            url: '/create',
+            views: {
+                'card-content': {
+                    templateUrl: 'client/crud/users/write/user-crud.html',
+                    controller: 'userWriteController as ctrl'
+                }
+                // resolve: {
+                //     user: checkForIdParam
+                // }
+            } });
+
+        // checkForIdParam.$inject = ['userService', '$stateParams']
+
+        // function checkForIdParam(userService, $stateParams) {
+        //     if ($stateParams.id) {
+        //         return userService.readById($stateParams.id)
+        //             .then(user => user.item)
+        //     } else { return null }
+        // }
     }
 })();
 'use strict';
@@ -414,6 +431,17 @@
             console.log(error.data);
             return $q.reject(error.data);
         }
+    }
+})();
+'use strict';
+
+;(function () {
+    angular.module('client.services').factory('userService', UserServiceFactory);
+
+    UserServiceFactory.$inject = ['$http', '$q'];
+
+    function UserServiceFactory($http, $q) {
+        return {};
     }
 })();
 'use strict';
@@ -784,6 +812,73 @@
 
         function _goToMainView() {
             $state.go('site.flash-cards.manage-cards');
+        }
+    }
+})();
+'use strict';
+
+;(function () {
+    'use strict';
+
+    angular.module('client.crud').controller('userWriteController', UserWriteController);
+
+    UserWriteController.$inject = ['$log', '$state', '$stateParams', 'userService'];
+
+    function UserWriteController($log, $state, $stateParams, userService) {
+        var vm = this;
+
+        // public variables
+        vm.formData = {};
+        vm.tagline = null;
+        vm.editMode = false;
+
+        // public functions
+        vm.submit = _submit;
+        vm.goToMainView = _goToMainView;
+
+        init();
+
+        function init() {
+            _checkAndSetMode();
+            // if (user) { vm.editMode = true }
+        }
+
+        function _checkAndSetMode() {
+            //edit mode
+            if ($state.current.name === 'site.flash-cards.manage-users.edit') {
+                vm.tagline = "Edit";
+                vm.formData = {
+                    _id: user._id,
+                    username: flashCard.question,
+                    sessions: {}
+                    //create mode
+                };
+            } else {
+                vm.tagline = 'Create';
+            }
+        }
+
+        function _submit() {
+            if (user) {
+                userService.update(vm.formData).then(function (result) {
+                    $log.log(result);
+                    $state.go('site.flash-cards.manage-users.list');
+                }).catch(function (err) {
+                    return $log.log(err);
+                });
+            } else {
+                vm.formData.bucket = 1;
+                flashCardService.create(vm.formData).then(function (result) {
+                    $log.log(result);
+                    $state.go('site.flash-cards.manage-users');
+                }).catch(function (err) {
+                    return $log.log(err);
+                });
+            }
+        }
+
+        function _goToMainView() {
+            $state.go('site.flash-cards.manage-users');
         }
     }
 })();

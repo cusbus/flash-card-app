@@ -1,3 +1,4 @@
+
 //------------ flash-card crud -------------------------------------------
 
 ;(function(){
@@ -93,8 +94,6 @@
 ;(function(){
     'use strict';
 
-    angular.module('client.crud', ['ui.router'])
-
     angular.module('client.crud').config(RouteConfig)
 
     RouteConfig.$inject = ['$stateProvider']
@@ -110,6 +109,26 @@
                     }
                 }
             })
+            .state('site.flash-cards.manage-users.write', {
+                url: '/create',
+                views: {
+                    'card-content': {
+                        templateUrl: 'client/crud/users/write/user-crud.html',
+                        controller: 'userWriteController as ctrl'
+                    }
+                }
+                // resolve: {
+                //     user: checkForIdParam
+                // }
+            })
 
+            // checkForIdParam.$inject = ['userService', '$stateParams']
+            
+            // function checkForIdParam(userService, $stateParams) {
+            //     if ($stateParams.id) {
+            //         return userService.readById($stateParams.id)
+            //             .then(user => user.item)
+            //     } else { return null }
+            // }
     }
 })();

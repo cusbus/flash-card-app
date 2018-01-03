@@ -1,0 +1,41 @@
+<div>
+    <form lpformnum="1" novalidate ng-model="ctrl.formData" class="animated fadeIn">
+        <fieldset>
+            <legend>{{ctrl.tagline}}</legend>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input ng-model="ctrl.formData.username" name="name" class="form-control"
+                    aria-describedby="usernameHelp"
+                    placeholder="Cusbus" required />
+            </div>
+            <div class="form-group">
+                <label for="sessionBucket">Choose a bucket to set, view, or edit session status</label>
+                <select class="form-control" ng-model="ctrl.sessionBucket" name="sessionBucket" required>
+                    <option value="" disabled>--Bucket--</option>
+                    <option value="all">All</option>
+                    <option value="frontEnd">Front End</option>
+                    <option value="htmlCss">---HTML/CSS</option>
+                    <option value="javascript">---JavaScript</option>
+                    <option value="angular">---Angular 1.x</option>     
+                    <option value="mongo">Mongo</option>
+                    <option value="node">Node</option>
+                    
+                    <option value="express">---Express</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sessionStatus">Current Session Status</label>
+                <div class="input-group">
+                    <input ng-model="ctrl.formData.currentSession" name="name" class="form-control"
+                        aria-describedby="usernameHelp"
+                        placeholder="Can be 1-5" required />
+                    <span class="input-group-btn">
+                        <button ng-click="" class="btn btn-secondary">Set Bucket</button>
+                    </span>
+                </div>
+            </div>
+            <button ng-click="ctrl.submit()" class="btn btn-info">Submit</button>
+            <button ng-click="ctrl.goToMainView()" class="btn btn-secondary">Back to the Top</button>
+        </fieldset>
+    </form>
+</div>

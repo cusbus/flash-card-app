@@ -35,6 +35,8 @@
 })();
 'use strict';
 
+//------------ flash-card crud -------------------------------------------
+
 ;(function () {
     'use strict';
 
@@ -46,7 +48,7 @@
 
     function RouteConfig($stateProvider) {
         $stateProvider.state('site.flash-cards.manage-cards', {
-            url: '/manage',
+            url: '/manage-cards',
             views: {
                 'content@site': {
                     templateUrl: 'client/crud/flash-cards/flash-card-crud.html',
@@ -118,6 +120,30 @@
                 return null;
             }
         }
+    }
+})();
+
+//------------ user crud -------------------------------------------
+
+;(function () {
+    'use strict';
+
+    angular.module('client.crud', ['ui.router']);
+
+    angular.module('client.crud').config(RouteConfig);
+
+    RouteConfig.$inject = ['$stateProvider'];
+
+    function RouteConfig($stateProvider) {
+        $stateProvider.state('site.flash-cards.manage-users', {
+            url: '/manage-users',
+            views: {
+                'content@site': {
+                    templateUrl: 'client/crud/users/user-crud.html',
+                    controller: 'userCrudController as ctrl'
+                }
+            }
+        });
     }
 })();
 'use strict';
@@ -451,6 +477,35 @@
                 return { 'flipInX': true };
             }
             if ($state.current.name == 'site.flash-cards.manage-cards.' + state) {
+                return { 'flipOutX': true };
+            }
+        }
+    }
+})();
+'use strict';
+
+;(function () {
+    'use strict';
+
+    angular.module('client.crud').controller('userCrudController', UserCrudController);
+
+    UserCrudController.$inject = ['$state', '$log'];
+
+    function UserCrudController($state, $log) {
+        var vm = this;
+
+        //public functions
+        vm.addAnimation = _addAnimation;
+
+        init();
+
+        function init() {}
+
+        function _addAnimation(state) {
+            if ($state.current.name == 'site.flash-cards.manage-users') {
+                return { 'flipInX': true };
+            }
+            if ($state.current.name == 'site.flash-cards.manage-users.' + state) {
                 return { 'flipOutX': true };
             }
         }

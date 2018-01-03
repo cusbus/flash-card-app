@@ -1,3 +1,5 @@
+//------------ flash-card crud -------------------------------------------
+
 ;(function(){
     'use strict';
 
@@ -10,7 +12,7 @@
     function RouteConfig($stateProvider){
         $stateProvider
             .state('site.flash-cards.manage-cards', {
-                url: '/manage',
+                url: '/manage-cards',
                 views: {
                     'content@site': {
                         templateUrl: 'client/crud/flash-cards/flash-card-crud.html',
@@ -82,6 +84,32 @@
                         .then(flashCard => flashCard.item)
                 } else { return null }
             }
+
+    }
+})();
+
+//------------ user crud -------------------------------------------
+
+;(function(){
+    'use strict';
+
+    angular.module('client.crud', ['ui.router'])
+
+    angular.module('client.crud').config(RouteConfig)
+
+    RouteConfig.$inject = ['$stateProvider']
+
+    function RouteConfig($stateProvider) {
+        $stateProvider
+            .state('site.flash-cards.manage-users', {
+                url: '/manage-users',
+                views: {
+                    'content@site': {
+                        templateUrl: 'client/crud/users/user-crud.html',
+                        controller: 'userCrudController as ctrl'
+                    }
+                }
+            })
 
     }
 })();

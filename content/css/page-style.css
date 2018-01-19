@@ -1,3 +1,4 @@
+/* BEGIN fa icon styling */
 .fa.infoIcon {
     color: #3399F3;
 }
@@ -28,23 +29,32 @@
     transform: scale(1.5);
 }
 
+.fa.fa-rebel {
+    color: rgb(197, 4, 4);
+}
+
+a:hover .fa.fa-rebel {
+    color:red;
+}
+/* END fa icon styling */
+
+
+/* begin padding / margin classes */
+.gandalf-margin {
+    margin-top: 20px;
+}
+
+.gandalf-center {
+    padding-top: 25px;
+}
+/* END padding / margin classes */
+
+
+/* BEGIN link color and styling */
 a.noUnderLine {
     text-decoration: none;
 }
 
-.gandalf-margin {
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
-
-.gandalf-center {
-    margin-top: 50px;
-    width: 50%;
-    border: 0px;
-    padding: 10px;
-}
-
-/* link color and styling */
 .gandalf-link-style:hover {
     cursor: pointer;
     color: #3399F3 !important;
@@ -63,3 +73,8 @@ a.noUnderLine {
     cursor: pointer;
     color: #0c73cd !important;
 }
+
+.navbar-brand.navbar-brand-focus:hover {
+    color: black;
+}
+/* END link color and styling */

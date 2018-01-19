@@ -11,8 +11,8 @@
         let vm = this
         
         //vars for toggling current card
-        vm.toggleQuestion = true
-        vm.toggleAnswer = false
+        vm.toggleToQuestion = true  
+        vm.toggleToAnswer = false
 
         //carousel vars 
         vm.currentIndex = null
@@ -22,7 +22,7 @@
         //public functions
         vm.filterCardTopics = _filterCardTopics
         vm.toggleQA = _toggleQA
-        vm.updateCarouselIndex = _updateCarouselIndex
+        vm.navigateCarouselIndex = _navigateCarouselIndex
         vm.refreshCarouselCard = _refreshCarouselCard
         vm.updateBucket = _updateBucket
 
@@ -56,9 +56,9 @@
             _refreshCarouselCard('Q')
         }
         
-        function _updateCarouselIndex (direction) {
+        function _navigateCarouselIndex(direction) {
             //ensures questions always displayed when navigating
-            if (vm.toggleAnswer) { _toggleQA() }
+            if (vm.toggleToAnswer) { _toggleQA() }
 
             //handling previous click
             if (direction == 'previous') {
@@ -87,8 +87,8 @@
         }
 
         function _toggleQA(){
-            vm.toggleAnswer = !vm.toggleAnswer
-            vm.toggleQuestion = !vm.toggleQuestion
+            vm.toggleToAnswer = !vm.toggleToAnswer
+            vm.toggleToQuestion = !vm.toggleToQuestion
         }
 
         function _updateBucket(adjuster) {
@@ -100,7 +100,7 @@
                 flashCardService.update(vm.currentFlashCard)
                     .then(result => {
                         $log.log(result)
-                        _updateCarouselIndex('next')
+                        _navigateCarouselIndex('next')
                     })
                     .catch(err => $log.log(err))
              }
@@ -110,7 +110,7 @@
                 flashCardService.update(vm.currentFlashCard)
                     .then(result => {
                         $log.log(result)
-                        _updateCarouselIndex('next')
+                        _navigateCarouselIndex('next')
                     })
                     .catch(err => $log.log(err))
              }

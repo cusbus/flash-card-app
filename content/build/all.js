@@ -313,11 +313,15 @@
         function init() {}
 
         function _addAnimation(bool) {
-            if ($state.current.name !== 'site.flash-cards' && bool == true) return { 'flipOutX': true };
+            if ($state.current.name !== 'site.flash-cards' && bool == true) {
+                return { 'flipOutX': true };
+            }
         }
 
         function _showFilter() {
-            if ($state.current.name == 'site.flash-cards.practice') return true;
+            if ($state.current.name == 'site.flash-cards.practice') {
+                return true;
+            }
         }
     }
 })();
@@ -570,28 +574,24 @@
         var vm = this;
 
         //vars for toggling current card
-        vm.toggleQuestion = true;
-        vm.toggleAnswer = false;
+        vm.toggleToQuestion = true;
+        vm.toggleToAnswer = false;
 
         //carousel vars 
         vm.currentIndex = null;
         vm.currentFlashCard = null;
         var currentFlashCardArray = []; // public var for filter func
 
-        vm.flashCards = null;
-
         //public functions
         vm.filterCardTopics = _filterCardTopics;
         vm.toggleQA = _toggleQA;
-        vm.updateCarouselIndex = _updateCarouselIndex;
+        vm.navigateCarouselIndex = _navigateCarouselIndex;
         vm.refreshCarouselCard = _refreshCarouselCard;
         vm.updateBucket = _updateBucket;
 
         init();
 
         function init() {
-            vm.flashCards = flashCards;
-
             currentFlashCardArray = flashCards;
 
             //carousel starting point along with an index
@@ -619,9 +619,9 @@
             _refreshCarouselCard('Q');
         }
 
-        function _updateCarouselIndex(direction) {
+        function _navigateCarouselIndex(direction) {
             //ensures questions always displayed when navigating
-            if (vm.toggleAnswer) {
+            if (vm.toggleToAnswer) {
                 _toggleQA();
             }
 
@@ -654,8 +654,8 @@
         }
 
         function _toggleQA() {
-            vm.toggleAnswer = !vm.toggleAnswer;
-            vm.toggleQuestion = !vm.toggleQuestion;
+            vm.toggleToAnswer = !vm.toggleToAnswer;
+            vm.toggleToQuestion = !vm.toggleToQuestion;
         }
 
         function _updateBucket(adjuster) {
@@ -668,7 +668,7 @@
                 vm.currentFlashCard.bucket += 1;
                 flashCardService.update(vm.currentFlashCard).then(function (result) {
                     $log.log(result);
-                    _updateCarouselIndex('next');
+                    _navigateCarouselIndex('next');
                 }).catch(function (err) {
                     return $log.log(err);
                 });
@@ -678,7 +678,7 @@
                 vm.currentFlashCard.bucket = 1;
                 flashCardService.update(vm.currentFlashCard).then(function (result) {
                     $log.log(result);
-                    _updateCarouselIndex('next');
+                    _navigateCarouselIndex('next');
                 }).catch(function (err) {
                     return $log.log(err);
                 });
@@ -686,6 +686,45 @@
         }
     }
 })();
+'use strict';
+
+(function (angular) {
+    'use strict';
+
+    var module = angular.module('sticky-footer', []);
+
+    module.directive('stickyFooter', ['$timeout', function ($timeout) {
+        return {
+            restrict: 'A',
+            link: function link(scope, iElement, iAttrs) {
+                var stickyFooterWrapper = $(iAttrs.stickyFooter);
+
+                // Quite often you will occur a few wrapping `<div>`s in the
+                // top level of your DOM, so we need to set the height
+                // to be 100% on each of those. This will also set it on
+                // the `<html>` and `<body>`.
+                stickyFooterWrapper.parents().css('height', '100%');
+                stickyFooterWrapper.css({
+                    'min-height': '100%',
+                    'height': 'auto'
+                });
+
+                // Append a pushing div to the stickyFooterWrapper.
+                var stickyFooterPush = $('<div class="push"></div>');
+                stickyFooterWrapper.append(stickyFooterPush);
+
+                var setHeights = function setHeights() {
+                    var height = iElement.outerHeight();
+                    stickyFooterPush.height(height);
+                    stickyFooterWrapper.css('margin-bottom', -height);
+                };
+
+                $timeout(setHeights, 0);
+                $(window).on('resize', setHeights);
+            }
+        };
+    }]);
+})(window.angular);
 'use strict';
 
 ;(function () {

@@ -11,6 +11,7 @@
 
         //public functions
         vm.addAnimation = _addAnimation
+        vm.showFilter = _showFilter
 
         init()
 
@@ -20,6 +21,10 @@
 
         function _addAnimation(bool) {
             if ($state.current.name !== 'site.flash-cards' && bool == true) { return { 'flipOutX': true } }
+        }
+
+        function _showFilter(){
+            if ($state.current.name == 'site.flash-cards.practice') { return true }
         }
 
     }

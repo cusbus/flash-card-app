@@ -1,12 +1,14 @@
-<div ng-repeat="headline in ctrl.checkTheHeadlines()" class="card gandalf-card-margin animated fadeIn">
-    <div class="card-body">
-        <div ng-click="ctrl.redirect(headline.url)">
-            <strong>
-                <h5 class="card-title text-muted gandalf-link-style" style="font-weight:bold;">{{headline.headline}}</h5>
-            </strong>
+<div ng-repeat="headline in ctrl.checkTheHeadlines()" class="animated fadeIn">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div ng-click="ctrl.redirect(headline.url)">
+                <strong>
+                    <h5 class="card-title text-muted gandalf-link-style" style="font-weight:bold;">{{headline.headline}}</h5>
+                </strong>
+            </div>
+            <h6 class="card-subtitle text-muted">{{headline.teaser}}</h6>
+            <p></p>
+            <a ng-click="ctrl.redirect(headline.url)" class="gimli gandalf-page-link">Read the full Article at NPR</a>
         </div>
-        <h6 class="card-subtitle text-muted">{{headline.teaser}}</h6>
-        <p></p>
-        <a ng-click="ctrl.redirect(headline.url)" class="gimli gandalf-page-link">Read the full Article at NPR</a>
     </div>
 </div>

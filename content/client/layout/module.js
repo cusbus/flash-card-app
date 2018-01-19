@@ -13,7 +13,8 @@
                 abstract: true,
                 views: {
                     root: {
-                        templateUrl: 'client/layout/site.tpl.html'
+                        templateUrl: 'client/layout/site.tpl.html',
+                        controller: 'navbarController as ctrl'
                     }
                 }
             })

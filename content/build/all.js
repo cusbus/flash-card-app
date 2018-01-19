@@ -232,7 +232,8 @@
             abstract: true,
             views: {
                 root: {
-                    templateUrl: 'client/layout/site.tpl.html'
+                    templateUrl: 'client/layout/site.tpl.html',
+                    controller: 'navbarController as ctrl'
                 }
             }
         });
@@ -305,16 +306,32 @@
 
         //public functions
         vm.addAnimation = _addAnimation;
+        vm.showFilter = _showFilter;
 
         init();
 
         function init() {}
 
         function _addAnimation(bool) {
-            if ($state.current.name !== 'site.flash-cards' && bool == true) {
-                return { 'flipOutX': true };
-            }
+            if ($state.current.name !== 'site.flash-cards' && bool == true) return { 'flipOutX': true };
         }
+
+        function _showFilter() {
+            if ($state.current.name == 'site.flash-cards.practice') return true;
+        }
+    }
+})();
+'use strict';
+
+;(function () {
+    'use strict';
+
+    angular.module('client.layout').controller('navbarController', NavbarController);
+
+    NavbarController.$inject = [];
+
+    function NavbarController() {
+        var vm = this;
     }
 })();
 'use strict';
@@ -561,6 +578,8 @@
         vm.currentFlashCard = null;
         var currentFlashCardArray = []; // public var for filter func
 
+        vm.flashCards = null;
+
         //public functions
         vm.filterCardTopics = _filterCardTopics;
         vm.toggleQA = _toggleQA;
@@ -571,6 +590,8 @@
         init();
 
         function init() {
+            vm.flashCards = flashCards;
+
             currentFlashCardArray = flashCards;
 
             //carousel starting point along with an index

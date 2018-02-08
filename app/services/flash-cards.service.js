@@ -53,7 +53,8 @@ function _update(id, flashCard) {
         question: flashCard.question,
         answer: flashCard.answer,
         category: flashCard.category,
-        subCategory: flashCard.subCategory
+        subCategory: flashCard.subCategory,
+        bucket: flashCard.bucket
     }
     return conn.db().collection('flashCards').updateOne({_id: new ObjectId(id)}, { $set: newFlashCard })
         .then(result => Promise.resolve())

@@ -1,3 +1,6 @@
+
+//------------ flash-card crud -------------------------------------------
+
 ;(function(){
     'use strict';
 
@@ -9,16 +12,16 @@
 
     function RouteConfig($stateProvider){
         $stateProvider
-            .state('site.flash-cards', {
-                url: '/flash-cards',
+            .state('site.flash-cards.manage-cards', {
+                url: '/manage-cards',
                 views: {
                     'content@site': {
-                        templateUrl: 'client/crud/flash-cards/flash-cards.html',
-                        controller: 'flashCardController as ctrl'
+                        templateUrl: 'client/crud/flash-cards/flash-card-crud.html',
+                        controller: 'flashCardCrudController as ctrl'
                     }
                 }
             })
-            .state('site.flash-cards.write', {
+            .state('site.flash-cards.manage-cards.write', {
                 url: '/create',
                 views: {
                     'card-content': {
@@ -30,7 +33,7 @@
                     flashCard: checkForIdParam
                 }
             })
-            .state('site.flash-cards.edit', {
+            .state('site.flash-cards.manage-cards.edit', {
                 url: '/edit/:id',
                 views: {
                     'card-content': {
@@ -42,7 +45,7 @@
                     flashCard: checkForIdParam
                 }
             })
-            .state('site.flash-cards.list', {
+            .state('site.flash-cards.manage-cards.list', {
                 url: '/list',
                 views: {
                     'card-content': {
@@ -54,7 +57,7 @@
                     flashCards: getAllFlashCards
                 }
             })
-            .state('site.flash-cards.detail', {
+            .state('site.flash-cards.manage-cards.detail', {
                 url: '/details/:id',
                 views: {
                     'card-content': {
@@ -66,27 +69,16 @@
                     flashCard: checkForIdParam
                 }
             })
-            .state('site.flash-cards.practice', {
-                url: '/practice',
-                views: {
-                    'card-content': {
-                        templateUrl: 'client/crud/flash-cards/practice/flash-cards-practice.html',
-                        controller: 'flashCardPracticeController as ctrl'
-                    }
-                },
-                resolve: { 
-                    flashCards: getAllFlashCards
-                }
-            })
 
             getAllFlashCards.$inject = ['flashCardService']
-            checkForIdParam.$inject = ['flashCardService', '$stateParams']
 
             function getAllFlashCards(flashCardService){
                 return flashCardService.readAll()
                     .then(flashCards => flashCards.items)
             }
 
+            checkForIdParam.$inject = ['flashCardService', '$stateParams']
+            
             function checkForIdParam(flashCardService, $stateParams) {
                 if ($stateParams.id) {
                     return flashCardService.readById($stateParams.id)
@@ -94,5 +86,49 @@
                 } else { return null }
             }
 
+    }
+})();
+
+//------------ user crud -------------------------------------------
+
+;(function(){
+    'use strict';
+
+    angular.module('client.crud').config(RouteConfig)
+
+    RouteConfig.$inject = ['$stateProvider']
+
+    function RouteConfig($stateProvider) {
+        $stateProvider
+            .state('site.flash-cards.manage-users', {
+                url: '/manage-users',
+                views: {
+                    'content@site': {
+                        templateUrl: 'client/crud/users/user-crud.html',
+                        controller: 'userCrudController as ctrl'
+                    }
+                }
+            })
+            .state('site.flash-cards.manage-users.write', {
+                url: '/create',
+                views: {
+                    'card-content': {
+                        templateUrl: 'client/crud/users/write/user-crud.html',
+                        controller: 'userWriteController as ctrl'
+                    }
+                }
+                // resolve: {
+                //     user: checkForIdParam
+                // }
+            })
+
+            // checkForIdParam.$inject = ['userService', '$stateParams']
+            
+            // function checkForIdParam(userService, $stateParams) {
+            //     if ($stateParams.id) {
+            //         return userService.readById($stateParams.id)
+            //             .then(user => user.item)
+            //     } else { return null }
+            // }
     }
 })();

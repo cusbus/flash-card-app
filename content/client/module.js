@@ -15,8 +15,9 @@
 
         //views & controllers
         'client.site',
-        'client.crud',
-        'client.scraper'
+        'client.flash-cards',
+        'client.scraper',
+        'client.crud'
 
     ])
 

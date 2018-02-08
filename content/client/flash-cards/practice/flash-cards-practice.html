@@ -1,0 +1,61 @@
+<div class="container">
+    <!-- topic filter -->
+    <div class="row gandalf-margin">
+        <div class="animated pull-right">
+            <fieldset>
+                <div class="form-group">Choose Study Topic</div>
+                <select class="custom-select" ng-change="ctrl.filterCardTopics(ctrl.filterVal)" ng-model="ctrl.filterVal">
+                    <option selected="" value="">All</option>
+                    <option value="frontEnd">Front End</option>
+                    <option value="htmlCss">--HTML/CSS</option>
+                    <option value="javascript">--JavaScript</option>
+                    <option value="angular">--AngularJS 1.x</option>
+                    <option value="mongo">MongoDB</option>
+                    <option value="node">node.js</option>
+                    <option value="express">--Express</option>
+                </select>
+            </fieldset>
+        </div>
+    </div>
+
+    <!-- flashcard "carousel" -->
+    <div class="gandalf-margin">
+        <div class="row gandalf-margin">
+            <div class="col-md-1 col-xs-1">
+                <a class="gandalf-link-style">
+                    <i ng-click="ctrl.navigateCarouselIndex('previous')" class="fa fa-chevron-left fa-3x gandalf-center" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="col-md-10 col-xs-10" ng-hide="ctrl.toggleToAnswer">
+                <div class="well animated flipInX" ng-click="ctrl.toggleQA()">
+                    <h2 class="">QUESTION:</h2>
+                    <h4 class="text-muted" btf-markdown="ctrl.refreshCarouselCard('Q')"></h4>
+                </div>
+            </div>
+            <div class="col-md-10 col-xs-10" ng-hide="ctrl.toggleToQuestion">
+                <div class="well animated flipInX" ng-click="ctrl.toggleQA()">
+                    <h2 class="mb-1">ANSWER:</h2>
+                    <h4 class="text-muted" btf-markdown="ctrl.refreshCarouselCard('A')"></h4>
+                </div>
+            </div>
+            <div class="col-md-1 col-xs-1">
+                <a class="gandalf-link-style">
+                    <i ng-click="ctrl.navigateCarouselIndex('next')" class="fa fa-chevron-right fa-3x  gandalf-center" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row gandalf-margin">
+        <!-- correct/incorrect selection -->
+        <div ng-show="ctrl.toggleToAnswer" class="container text-center">
+            <label>Did you get this right?</label>
+            <div class="row">
+                <div class="">
+                    <button ng-click="ctrl.updateBucket('increment')" class="btn btn-default">Yes, Let's GO!</button>
+                    <button ng-click="ctrl.updateBucket('decrement')" class="btn btn-default">No, gg</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,6 +5,7 @@
                 <th scope="col">Category</th>
                 <th scope="col">Subcategory</th>
                 <th scope="col">Question</th>
+                <th scope="col">Bucket</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -16,15 +17,16 @@
                 <td>{{flashCard.category}}</td>
                 <td>{{flashCard.subCategory}}</td>
                 <td>{{flashCard.question}}</td>
+                <td>{{flashCard.bucket}}</td>
                 <td>
                     <div ng-show="hoverEdit" ng-class="{'animated fadeIn': hoverEdit}">
                         <span>
-                            <a ui-sref="site.flash-cards.detail({id:flashCard._id})" class="noUnderLine">
+                            <a ui-sref="site.flash-cards.manage-cards.detail({id:flashCard._id})" class="noUnderLine">
                                 <i class="fa fa-info fa-sm infoIcon" aria-hidden="true"></i>
                             </a>
                         </span>
                         <span>
-                            <a ui-sref="site.flash-cards.edit({id:flashCard._id})" class="noUnderLine">
+                            <a ui-sref="site.flash-cards.manage-cards.edit({id:flashCard._id})" class="noUnderLine">
                                 <i class="fa fa-pencil fa-sm editIcon" aria-hidden="true"></i>
                             </a>
                         </span>

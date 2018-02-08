@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="container gandalf-margin">
+        <div class="row">
+            <div class="list-group col-md-4 animated" ng-class="ctrl.addAnimation('write')">
+                <a ui-sref="site.flash-cards.manage-cards.write" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <p class="mb-1">Create</p>
+                    <small class="text-muted">Add an additional Flash Card.</small>
+                </a>
+            </div>
+            <div class="list-group col-md-4 animated" ng-class="ctrl.addAnimation('list')">
+                <a ui-sref="site.flash-cards.manage-cards.list" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <p class="mb-1">View All</p>
+                    <small class="text-muted">Check all of the current Flash Cards.</small>
+                </a>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+
+<div class="container gandalf-container">
+    <div ui-view="card-content"></div>
+</div>

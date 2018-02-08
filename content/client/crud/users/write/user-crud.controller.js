@@ -2,11 +2,11 @@
     'use strict';
 
     angular.module('client.crud')
-        .controller('flashCardWriteController', FlashCardWriteController)
+        .controller('userWriteController', UserWriteController)
 
-    FlashCardWriteController.$inject = ['$log', '$state', '$stateParams', 'flashCardService', 'flashCard']
+    UserWriteController.$inject = ['$log', '$state', '$stateParams', 'userService']
 
-    function FlashCardWriteController($log, $state, $stateParams, flashCardService, flashCard) {
+    function UserWriteController($log, $state, $stateParams, userService) {
         let vm = this
         
         // public variables
@@ -22,31 +22,30 @@
 
         function init(){
             _checkAndSetMode()
-            if (flashCard) { vm.editMode = true }
+            // if (user) { vm.editMode = true }
         }
 
         function _checkAndSetMode(){
             //edit mode
-            if ($state.current.name === 'site.flash-cards.manage-cards.edit'){
+            if ($state.current.name === 'site.flash-cards.manage-users.edit'){
                 vm.tagline = "Edit"
                 vm.formData = {
-                    _id: flashCard._id,
-                    question: flashCard.question,
-                    answer: flashCard.answer,
-                    category: flashCard.category,
-                    subCategory: flashCard.subCategory,
-                    bucket: flashCard.bucket
+                    _id: user._id,
+                    username: flashCard.question,
+                    sessions: {
+
+                    }
                 }
             //create mode
             } else { vm.tagline = 'Create' }
         }
 
         function _submit(){
-            if (flashCard) {
-                flashCardService.update(vm.formData)
+            if (user) {
+                userService.update(vm.formData)
                     .then(result => {
                         $log.log(result)
-                        $state.go('site.flash-cards.manage-cards.list')
+                        $state.go('site.flash-cards.manage-users.list')
                     })
                     .catch(err => $log.log(err))
             }
@@ -55,14 +54,14 @@
                 flashCardService.create(vm.formData) 
                     .then(result => {
                         $log.log(result)
-                        $state.go('site.flash-cards.manage-cards')
+                        $state.go('site.flash-cards.manage-users')
                     })
                     .catch(err => $log.log(err))
             }
         }
 
         function _goToMainView() {
-            $state.go('site.flash-cards.manage-cards')
+            $state.go('site.flash-cards.manage-users')
         }
     }
 

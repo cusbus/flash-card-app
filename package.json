@@ -24,7 +24,6 @@
   "dependencies": {
     "angular-markdown-directive": "^0.3.1",
     "animate.css": "^3.5.2",
-    "aws-sdk": "^2.149.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.4.2",
     "bower": "^1.8.2",
@@ -42,7 +41,6 @@
     "mongodb": "^2.2.31",
     "node-uuid": "^1.4.7",
     "nodemon": "^1.12.1",
-    "request-promise-native": "^1.0.5",
     "sanitize-html": "^1.15.0",
     "typings": "^2.1.1",
     "uuid": "^3.1.0"

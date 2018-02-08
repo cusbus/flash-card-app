@@ -1,0 +1,30 @@
+<div class="container">
+        <!-- topic filter -->
+        <div class="row gandalf-margin">
+            <form>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <div class="col-md-3 col-form-label text-muted">Username</div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="inputPassword" placeholder="cusbus">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-sm-3 col-form-label">Choose Study Topic</div>
+                        <div class="col-sm-9">
+                            <select class="custom-select form-control" ng-change="ctrl.filterCardTopics(ctrl.filterVal)" ng-model="ctrl.filterVal">
+                                <option selected="" value="">All</option>
+                                <option value="frontEnd">Front End</option>
+                                <option value="htmlCss">--HTML/CSS</option>
+                                <option value="javascript">--JavaScript</option>
+                                <option value="angular">--AngularJS 1.x</option>
+                                <option value="mongo">MongoDB</option>
+                                <option value="node">node.js</option>
+                                <option value="express">--Express</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

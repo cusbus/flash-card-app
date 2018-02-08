@@ -14,7 +14,6 @@
 
     function ScraperComponentController($log, $window) {
         let vm = this
-        vm.isFocus = false
 
         //public functions
         vm.$onInit = $onInit

@@ -468,6 +468,30 @@
 'use strict';
 
 ;(function () {
+    angular.module('client.flash-cards').component('cardOptions', {
+        templateUrl: 'client/components/flash-cards-practice-options/flash-card-options.html',
+        controller: 'flashCardOptionComponentController as ctrl',
+        bindings: {
+            headlines: '='
+        }
+    });
+
+    angular.module('client.flash-cards').controller('flashCardOptionComponentController', FlashCardOptionComponentController);
+
+    FlashCardOptionComponentController.$inject = ['$log'];
+
+    function FlashCardOptionComponentController($log) {
+        var vm = this;
+
+        //public functions
+        vm.$onInit = $onInit;
+
+        function $onInit() {}
+    }
+})();
+'use strict';
+
+;(function () {
     angular.module('client.scraper').component('scraper', {
         templateUrl: 'client/components/scraper/scraper.html',
         controller: 'scraperComponentController as ctrl',
@@ -482,7 +506,6 @@
 
     function ScraperComponentController($log, $window) {
         var vm = this;
-        vm.isFocus = false;
 
         //public functions
         vm.$onInit = $onInit;

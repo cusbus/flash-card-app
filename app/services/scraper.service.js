@@ -33,7 +33,6 @@ function _readAll() {
         })
 }
 
-// credit to TOMAS DVORAK https://www.tomas-dvorak.cz/posts/nodejs-request-without-dependencies/
 
 const getContent = function (url) {
     // return new pending promise
